@@ -1,11 +1,15 @@
 import Header from '../../components/header/header';
 import MainContent from '../../components/main/main';
 
-function MainScreen(): JSX.Element {
+type MainScreenProps = {
+  rentalOffersNumber: number;
+}
+
+function MainScreen({rentalOffersNumber}: MainScreenProps): JSX.Element {
   return (
     <>
       <Header />
-      <MainContent />
+      <MainContent rentalOffersNumber={rentalOffersNumber} />
     </>
   );
 }
