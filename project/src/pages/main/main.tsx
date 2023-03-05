@@ -2,14 +2,14 @@ import Header from '../../components/header/header';
 import MainContent from '../../components/main/main';
 
 type MainScreenProps = {
-  rentalOffersNumber: number;
+  rentalOffersCount: number;
 }
 
-function MainScreen({rentalOffersNumber}: MainScreenProps): JSX.Element {
+function MainScreen({rentalOffersCount}: MainScreenProps): JSX.Element {
   return (
     <>
       <Header />
-      <MainContent rentalOffersNumber={rentalOffersNumber} />
+      <MainContent rentalOffersCount={rentalOffersCount} />
     </>
   );
 }
