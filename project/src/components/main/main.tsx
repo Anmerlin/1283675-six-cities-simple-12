@@ -1,3 +1,5 @@
+import { useLocation } from 'react-router-dom';
+import { MainClassByPage } from '../../const';
 import Card from '../card/card';
 
 type MainProps = {
@@ -5,8 +7,20 @@ type MainProps = {
 }
 
 function MainContent({ rentalOffersCount }: MainProps): JSX.Element {
+  const location = useLocation();
+
+  let mainClassByPage = MainClassByPage.Main;
+
+  if (location.pathname === '/login') {
+    mainClassByPage = MainClassByPage.Login;
+  }
+
+  if (location.pathname === '/offer/') {
+    mainClassByPage = MainClassByPage.Offer;
+  }
+
   return (
-    <main className="page__main page__main--index">
+    <main className={`page__main page__main--${mainClassByPage}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
