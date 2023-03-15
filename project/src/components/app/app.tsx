@@ -5,12 +5,14 @@ import LoginScreen from '../../pages/login/login';
 import OfferScreen from '../../pages/offer/offer';
 import Layout from '../layout/layout';
 import PageNotFound from '../page-not-found/page-not-found';
+import { OfferCards } from '../../types/offer';
 
 type AppScreenProps = {
   rentalOffersCount: number;
+  offers: OfferCards;
 }
 
-function App({ rentalOffersCount }: AppScreenProps): JSX.Element {
+function App({ rentalOffersCount, offers }: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
