@@ -1,26 +1,15 @@
-import { useLocation } from 'react-router-dom';
-import { MainClassByPage } from '../../const';
-import Card from '../card/card';
+import { OfferCards } from '../../types/offer';
+import OffersList from '../offer-list/offer-list';
 
 type MainProps = {
   rentalOffersCount: number;
+  offers: OfferCards;
 }
 
-function MainContent({ rentalOffersCount }: MainProps): JSX.Element {
-  const location = useLocation();
-
-  let mainClassByPage = MainClassByPage.Main;
-
-  if (location.pathname === '/login') {
-    mainClassByPage = MainClassByPage.Login;
-  }
-
-  if (location.pathname === '/offer/') {
-    mainClassByPage = MainClassByPage.Offer;
-  }
+function MainContent({ rentalOffersCount, offers }: MainProps): JSX.Element {
 
   return (
-    <main className={`page__main page__main--${mainClassByPage}`}>
+    <>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
@@ -78,20 +67,16 @@ function MainContent({ rentalOffersCount }: MainProps): JSX.Element {
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-            </div>
+
+            <OffersList offers={offers} />
+
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
           </div>
         </div>
       </div>
-    </main>
+    </>
   );
 }
 
