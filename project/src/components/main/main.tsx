@@ -1,26 +1,15 @@
-import { useLocation } from 'react-router-dom';
-import { MainClassByPage } from '../../const';
-import Card from '../card/card';
+import { OfferCards } from 'types/offer';
+import { Offers } from 'components';
 
 type MainProps = {
   rentalOffersCount: number;
+  offers: OfferCards;
 }
 
-function MainContent({ rentalOffersCount }: MainProps): JSX.Element {
-  const location = useLocation();
-
-  let mainClassByPage = MainClassByPage.Main;
-
-  if (location.pathname === '/login') {
-    mainClassByPage = MainClassByPage.Login;
-  }
-
-  if (location.pathname === '/offer/') {
-    mainClassByPage = MainClassByPage.Offer;
-  }
+function MainContent({ rentalOffersCount, offers }: MainProps): JSX.Element {
 
   return (
-    <main className={`page__main page__main--${mainClassByPage}`}>
+    <>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
@@ -71,27 +60,24 @@ function MainContent({ rentalOffersCount }: MainProps): JSX.Element {
                   <use xlinkHref="#icon-arrow-select"></use>
                 </svg>
               </span>
-              <ul className="places__options places__options--custom places__options--opened">
+              {/* <ul className="places__options places__options--custom places__options--opened"> */}
+              <ul className="places__options places__options--custom">
                 <li className="places__option places__option--active" tabIndex={0}>Popular</li>
                 <li className="places__option" tabIndex={0}>Price: low to high</li>
                 <li className="places__option" tabIndex={0}>Price: high to low</li>
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-            </div>
+
+            <Offers offers={offers} />
+
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
           </div>
         </div>
       </div>
-    </main>
+    </>
   );
 }
 
