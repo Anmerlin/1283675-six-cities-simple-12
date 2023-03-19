@@ -1,24 +1,47 @@
-import { Outlet, useLocation } from 'react-router-dom';
-import Header from '../header/header';
-import { MainClassByPage } from '../../const';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { AppRoute, MainClassModifierByPage, PagesTitle } from 'const';
+import { Header } from 'components';
+
+const setParamsModifier = (location: string, id: string | undefined, param?: string) => {
+  const appRouteOffer = (id) ? AppRoute.OfferById.replace(/:id/, id) : AppRoute.Offer;
+
+  switch (location) {
+    case AppRoute.Main:
+      if (param === 'title') {
+        return PagesTitle.Main;
+      }
+      return MainClassModifierByPage.Main;
+    case AppRoute.Login:
+      if (param === 'title') {
+        return PagesTitle.Login;
+      }
+      return MainClassModifierByPage.Login;
+    case appRouteOffer:
+      if (param === 'title') {
+        return PagesTitle.Offer;
+      }
+      return MainClassModifierByPage.Offer;
+    default:
+      if (param === 'title') {
+        return PagesTitle.NotFound;
+      }
+      return MainClassModifierByPage.NotFound;
+  }
+};
 
 function Layout() {
-  const location = useLocation();
+  const { pathname } = useLocation();
 
-  let mainClassByPage = MainClassByPage.Main;
-
-  if (location.pathname === '/login') {
-    mainClassByPage = MainClassByPage.Login;
-  }
-
-  if (location.pathname === '/offer') {
-    mainClassByPage = MainClassByPage.Offer;
-  }
+  const { id } = useParams();
 
   return (
     <>
+      <Helmet>
+        <title>{setParamsModifier(pathname, id, 'title')}</title>
+      </Helmet>
       <Header />
-      <main className={`page__main page__main--${mainClassByPage}`}>
+      <main className={`page__main page__main--${setParamsModifier(pathname, id)}`}>
         <Outlet />
       </main>
     </>

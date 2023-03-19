@@ -1,4 +1,4 @@
-import ReviewForm from '../../components/review-form/review-form';
+import { Review } from 'components';
 
 function OfferScreen(): JSX.Element {
   return (
@@ -141,7 +141,7 @@ function OfferScreen(): JSX.Element {
                   </div>
                 </li>
               </ul>
-              <ReviewForm />
+              <Review />
             </section>
           </div>
         </div>

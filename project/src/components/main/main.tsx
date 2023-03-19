@@ -1,5 +1,5 @@
-import { OfferCards } from '../../types/offer';
-import OffersList from '../offer-list/offer-list';
+import { OfferCards } from 'types/offer';
+import { Offers } from 'components';
 
 type MainProps = {
   rentalOffersCount: number;
@@ -60,7 +60,8 @@ function MainContent({ rentalOffersCount, offers }: MainProps): JSX.Element {
                   <use xlinkHref="#icon-arrow-select"></use>
                 </svg>
               </span>
-              <ul className="places__options places__options--custom places__options--opened">
+              {/* <ul className="places__options places__options--custom places__options--opened"> */}
+              <ul className="places__options places__options--custom">
                 <li className="places__option places__option--active" tabIndex={0}>Popular</li>
                 <li className="places__option" tabIndex={0}>Price: low to high</li>
                 <li className="places__option" tabIndex={0}>Price: high to low</li>
@@ -68,7 +69,7 @@ function MainContent({ rentalOffersCount, offers }: MainProps): JSX.Element {
               </ul>
             </form>
 
-            <OffersList offers={offers} />
+            <Offers offers={offers} />
 
           </section>
           <div className="cities__right-section">

@@ -1,5 +1,7 @@
 import { ChangeEvent, Fragment, useState } from 'react';
-import { RatingScores, MIN_LENGTH_INPUT } from '../../const';
+import { RatingScores } from 'const';
+
+const MIN_LENGTH_INPUT = 50;
 
 function ReviewForm(): JSX.Element {
   const [formData, setFormData] = useState({
@@ -12,11 +14,11 @@ function ReviewForm(): JSX.Element {
     setFormData({ ...formData, [name]: value });
   };
 
-  const isValidForm = () => {
-    const isValidText = formData.review.length > MIN_LENGTH_INPUT;
+  const isFormValid = () => {
+    const isTextValid = formData.review.length > MIN_LENGTH_INPUT;
     const isRated = formData.rating > 0;
 
-    return isValidText && isRated;
+    return isTextValid && isRated;
   };
 
   return (
@@ -58,7 +60,7 @@ function ReviewForm(): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={!isValidForm()}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={!isFormValid()}>Submit</button>
       </div>
     </form>
   );

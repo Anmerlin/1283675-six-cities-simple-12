@@ -1,5 +1,16 @@
 import { Person } from './person';
 
+type Location = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+}
+
+type City = {
+  location: Location;
+  name: string;
+}
+
 export type OfferCard = {
   id: number;
   isPremium: boolean;
@@ -17,16 +28,5 @@ export type OfferCard = {
   location: Location;
   host: Person;
 };
-
-type City = {
-  location: Location;
-  name: string;
-}
-
-type Location = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}
 
 export type OfferCards = OfferCard[];

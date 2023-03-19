@@ -1,5 +1,5 @@
-import MainContent from '../../components/main/main';
-import { OfferCards } from '../../types/offer';
+import { OfferCards } from 'types/offer';
+import { Main } from 'components';
 
 type MainScreenProps = {
   rentalOffersCount: number;
@@ -8,7 +8,7 @@ type MainScreenProps = {
 
 function MainScreen({ rentalOffersCount, offers }: MainScreenProps): JSX.Element {
   return (
-    <MainContent rentalOffersCount={rentalOffersCount} offers = {offers}/>
+    <Main rentalOffersCount={rentalOffersCount} offers={offers} />
   );
 }
 

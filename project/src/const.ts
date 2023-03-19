@@ -1,14 +1,16 @@
 export enum AppRoute {
   Login = '/login',
   Main = '/',
-  Room = '/offer/:id',
+  Offer = '/offer',
+  OfferById = '/offer/:id',
 }
 
-export enum MainClassByPage {
+export enum MainClassModifierByPage {
   Main = 'index',
   Login = 'login',
   Offer = 'property',
-  Empty = 'index-empty'
+  Empty = 'index-empty',
+  NotFound = 'not-found'
 }
 
 export enum AuthorizationStatus {
@@ -16,6 +18,14 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const PagesTitle = {
+  Main: 'Six cities simple',
+  Login: 'Six cities simple: authorizations',
+  Empty: 'Six cities simple: no places',
+  Offer: 'Six cities simple: offer',
+  NotFound: 'Six cities simple: page not found'
+} as const;
 
 export const MAX_RATING = 5;
 
@@ -46,5 +56,3 @@ export const RatingScores = [
     title: 'terribly'
   },
 ];
-
-export const MIN_LENGTH_INPUT = 50;

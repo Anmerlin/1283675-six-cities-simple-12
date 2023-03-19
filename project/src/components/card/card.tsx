@@ -1,24 +1,34 @@
-
-import { Dispatch, SetStateAction } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { OfferCard } from '../../types/offer';
-import { MAX_RATING } from '../../const';
+import { OfferCard } from 'types/offer';
+import { MAX_RATING } from 'const';
 
 type CardProps = {
   offer: OfferCard;
-  setActiveCard: Dispatch<SetStateAction<OfferCard | null>>;
 }
 
-function Card({ offer, setActiveCard }: CardProps): JSX.Element {
+function Card({ offer }: CardProps): JSX.Element {
   const { id, isPremium, previewImage, price, rating, title, type } = offer;
-  const placeCardMark = (isPremium) ? <div className="place-card__mark"><span>Premium</span></div> : '';
+
+  const [, setActive] = useState<OfferCard | null>(null);
+
+  const placeCardMark = (isPremium) ? <div className="place-card__mark"><span>Premium</span></div> : null;
+
   const ratingStyleValue = Math.round(rating / MAX_RATING) * 100;
+
+  const handleMouseEnter = () => {
+    setActive(offer);
+  };
+
+  const handleMouseLeave = () => {
+    setActive(null);
+  };
 
   return (
     <article
       className="cities__card place-card"
-      onMouseEnter={() => setActiveCard(offer)}
-      onMouseLeave={() => setActiveCard(null)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {placeCardMark}
       <div className="cities__image-wrapper place-card__image-wrapper">
