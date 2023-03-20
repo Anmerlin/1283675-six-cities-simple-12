@@ -1,15 +1,6 @@
 import { Person } from './person';
-
-type Location = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}
-
-type City = {
-  location: Location;
-  name: string;
-}
+import { City } from './city';
+import { Location } from './location';
 
 export type OfferCard = {
   id: number;

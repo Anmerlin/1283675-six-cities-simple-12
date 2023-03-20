@@ -27,6 +27,22 @@ export const PagesTitle = {
   NotFound: 'Six cities simple: page not found'
 } as const;
 
+export const Cities = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+] as const;
+
+export const HousingType = {
+  apartment: 'Apartment',
+  room: 'Private Room',
+  house: 'House',
+  hotel: 'Hotel',
+} as const;
+
 export const MAX_RATING = 5;
 
 export const RatingScores = [
@@ -56,3 +72,12 @@ export const RatingScores = [
     title: 'terribly'
   },
 ];
+
+export const MarkerIcon = {
+  Default: '/img/pin.svg',
+  Active: '/img/pin-active.svg',
+  Size: {
+    Width: 28,
+    Height: 40,
+  }
+} as const;
