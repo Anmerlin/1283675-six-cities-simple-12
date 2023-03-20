@@ -32,16 +32,16 @@ export const offers: OfferCards = [
     ],
     description: 'This is a place for dreamers to reset, reflect, and create. Designed with a slow pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
-        latitude: 48.85661,
-        longitude: 2.351499,
+        latitude: 50.938361,
+        longitude: 6.959974,
         zoom: 13,
-      },
+      }
     },
     location: {
-      latitude: 48.85761,
-      longitude: 2.358499,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 16,
     },
     host: {
@@ -74,16 +74,16 @@ export const offers: OfferCards = [
     ],
     description: 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
     city: {
-      name: 'Cologne',
+      name: 'Amsterdam',
       location: {
         latitude: 50.938361,
         longitude: 6.959974,
-        zoom: 13
+        zoom: 13,
       }
     },
     location: {
-      latitude: 50.950361,
-      longitude: 6.961974,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 16
     },
     host: {
@@ -115,16 +115,16 @@ export const offers: OfferCards = [
     ],
     description: 'Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country. In our beautiful screened Pondhouse, you can gaze at the stars and listen to the sounds of nature from your cozy warm bed.',
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
-        latitude: 48.85661,
-        longitude: 2.351499,
+        latitude: 50.938361,
+        longitude: 6.959974,
         zoom: 13,
       }
     },
     location: {
-      latitude: 48.877610000000004,
-      longitude: 2.333499,
+      latitude: 52.3609553943508,
+      longitude: 4.929309666406198,
       zoom: 16,
     },
     host: {
@@ -171,8 +171,8 @@ export const offers: OfferCards = [
       }
     },
     location: {
-      latitude: 50.945361,
-      longitude: 6.962974,
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
       zoom: 16,
     },
     host: {
