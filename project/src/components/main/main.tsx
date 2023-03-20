@@ -1,5 +1,7 @@
-import { OfferCards } from 'types/offer';
-import { Offers } from 'components';
+import { useState } from 'react';
+import { OfferCards, OfferCard } from 'types/offer';
+// import { Cities } from 'const';
+import { Offers, Map } from 'components';
 
 type MainProps = {
   rentalOffersCount: number;
@@ -7,6 +9,7 @@ type MainProps = {
 }
 
 function MainContent({ rentalOffersCount, offers }: MainProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState<OfferCard | null>(null);
 
   return (
     <>
@@ -69,11 +72,15 @@ function MainContent({ rentalOffersCount, offers }: MainProps): JSX.Element {
               </ul>
             </form>
 
-            <Offers offers={offers} />
+            <Offers offers={offers} setActive={setActiveCard}/>
 
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <Map
+              city={offers[0].city}
+              offers={offers}
+              selectedOffer={activeCard}
+            />
           </div>
         </div>
       </div>

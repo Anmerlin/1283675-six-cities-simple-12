@@ -34,9 +34,9 @@ export const offers: OfferCards = [
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 50.938361,
-        longitude: 6.959974,
-        zoom: 13,
+        latitude: 52.37454,
+        longitude: 4.897976,
+        zoom: 12,
       }
     },
     location: {
@@ -76,13 +76,13 @@ export const offers: OfferCards = [
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 50.938361,
-        longitude: 6.959974,
-        zoom: 13,
+        latitude: 52.37454,
+        longitude: 4.897976,
+        zoom: 12,
       }
     },
     location: {
-      latitude: 52.3909553943508,
+      latitude: 52.3609553943508,
       longitude: 4.85309666406198,
       zoom: 16
     },
@@ -117,13 +117,13 @@ export const offers: OfferCards = [
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 50.938361,
-        longitude: 6.959974,
-        zoom: 13,
+        latitude: 52.37454,
+        longitude: 4.897976,
+        zoom: 12,
       }
     },
     location: {
-      latitude: 52.3609553943508,
+      latitude: 52.3909553943508,
       longitude: 4.929309666406198,
       zoom: 16,
     },
@@ -165,9 +165,9 @@ export const offers: OfferCards = [
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 50.938361,
-        longitude: 6.959974,
-        zoom: 13,
+        latitude: 52.37454,
+        longitude: 4.897976,
+        zoom: 12,
       }
     },
     location: {

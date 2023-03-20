@@ -7,3 +7,4 @@ export { default as Offers } from './offer-list/offer-list';
 export { default as Offer } from './card/card';
 export { default as PageNotFound } from './page-not-found/page-not-found';
 export { default as Review } from './review-form/review-form';
+export { default as Map } from './map/map';
