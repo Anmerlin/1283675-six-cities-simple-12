@@ -1,19 +1,15 @@
-// import { useState } from 'react';
-// import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
 import { OfferCard } from 'types/offer';
 import { MAX_RATING } from 'const';
 
 type CardProps = {
   offer: OfferCard;
-  // setActive: Dispatch<SetStateAction<OfferCard | null>>;
-  setActive: OfferCard;
+  setActive: Dispatch<SetStateAction<OfferCard | null>>;
 }
 
 function Card({ offer, setActive }: CardProps): JSX.Element {
   const { id, isPremium, previewImage, price, rating, title, type } = offer;
-
-  // const [, setActive] = useState<OfferCard | null>(null);
 
   const ratingStyleValue = Math.round(rating / MAX_RATING) * 100;
 
