@@ -1,27 +1,24 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
 import { OfferCard } from 'types/offer';
 import { MAX_RATING } from 'const';
 
 type CardProps = {
   offer: OfferCard;
+  selectOffer: Dispatch<SetStateAction<OfferCard | null>>;
 }
 
-function Card({ offer }: CardProps): JSX.Element {
+function Card({ offer, selectOffer }: CardProps): JSX.Element {
   const { id, isPremium, previewImage, price, rating, title, type } = offer;
-
-  const [, setActive] = useState<OfferCard | null>(null);
-
-  const placeCardMark = (isPremium) ? <div className="place-card__mark"><span>Premium</span></div> : null;
 
   const ratingStyleValue = Math.round(rating / MAX_RATING) * 100;
 
   const handleMouseEnter = () => {
-    setActive(offer);
+    selectOffer(offer);
   };
 
   const handleMouseLeave = () => {
-    setActive(null);
+    selectOffer(null);
   };
 
   return (
@@ -30,7 +27,8 @@ function Card({ offer }: CardProps): JSX.Element {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {placeCardMark}
+      {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
+
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />

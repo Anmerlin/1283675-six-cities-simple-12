@@ -1,5 +1,6 @@
-import { OfferCards } from 'types/offer';
-import { Offers } from 'components';
+import { useState } from 'react';
+import { OfferCards, OfferCard } from 'types/offer';
+import { Offers, Map, City } from 'components';
 
 type MainProps = {
   rentalOffersCount: number;
@@ -7,44 +8,14 @@ type MainProps = {
 }
 
 function MainContent({ rentalOffersCount, offers }: MainProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState<OfferCard | null>(null);
 
   return (
     <>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
-          <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
-          </ul>
+          <City />
         </section>
       </div>
       <div className="cities">
@@ -69,11 +40,15 @@ function MainContent({ rentalOffersCount, offers }: MainProps): JSX.Element {
               </ul>
             </form>
 
-            <Offers offers={offers} />
+            <Offers offers={offers} setActive={setActiveCard} />
 
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <Map
+              city={offers[0].city}
+              offers={offers}
+              selectedOffer={activeCard}
+            />
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import { ChangeEvent, Fragment, useState } from 'react';
 import { RatingScores } from 'const';
 
 const MIN_LENGTH_INPUT = 50;
+const MAX_LENGTH_INPUT = 300;
 
 function ReviewForm(): JSX.Element {
   const [formData, setFormData] = useState({
@@ -9,13 +10,13 @@ function ReviewForm(): JSX.Element {
     rating: 0
   });
 
-  const fieldChangeHandle = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleFieldChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
   const isFormValid = () => {
-    const isTextValid = formData.review.length > MIN_LENGTH_INPUT;
+    const isTextValid = formData.review.length > MIN_LENGTH_INPUT && formData.review.length < MAX_LENGTH_INPUT;
     const isRated = formData.rating > 0;
 
     return isTextValid && isRated;
@@ -35,7 +36,7 @@ function ReviewForm(): JSX.Element {
               id={`${score.value}-stars`}
               type="radio"
               checked={formData.rating === score.value}
-              onChange={fieldChangeHandle}
+              onChange={handleFieldChange}
             />
             <label htmlFor={`${score.value}-stars`} className="reviews__rating-label form__rating-label" title={score.title}>
               <svg className="form__star-image" width="37" height="33">
@@ -52,7 +53,7 @@ function ReviewForm(): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={fieldChangeHandle}
+        onChange={handleFieldChange}
         value={formData.review}
       />
 

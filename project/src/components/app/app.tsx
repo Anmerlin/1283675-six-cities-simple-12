@@ -2,11 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppRoute } from 'const';
 import { OfferCards } from 'types/offer';
 import { ReviewOfferCards } from 'types/review';
-import { MainScreen } from 'pages';
-import { LoginScreen } from 'pages';
-import { OfferScreen } from 'pages';
-import { Layout } from 'components';
-import { PageNotFound } from 'components';
+import { MainScreen, LoginScreen, OfferScreen } from 'pages';
+import { Layout, PageNotFound } from 'components';
 
 type AppScreenProps = {
   rentalOffersCount: number;
