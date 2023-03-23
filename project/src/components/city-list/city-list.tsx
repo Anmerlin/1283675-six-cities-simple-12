@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Cities } from 'const';
+import { Cities, DEFAULT_CITY } from 'const';
 
 const setActiveCity = (city: string): JSX.Element => {
-  if (city === 'Amsterdam') {
+  if (city === DEFAULT_CITY) {
     return (
       <a className="locations__item-link tabs__item tabs__item--active">
         <span>{city}</span>

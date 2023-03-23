@@ -5,20 +5,20 @@ import { MAX_RATING } from 'const';
 
 type CardProps = {
   offer: OfferCard;
-  setActive: Dispatch<SetStateAction<OfferCard | null>>;
+  selectOffer: Dispatch<SetStateAction<OfferCard | null>>;
 }
 
-function Card({ offer, setActive }: CardProps): JSX.Element {
+function Card({ offer, selectOffer }: CardProps): JSX.Element {
   const { id, isPremium, previewImage, price, rating, title, type } = offer;
 
   const ratingStyleValue = Math.round(rating / MAX_RATING) * 100;
 
   const handleMouseEnter = () => {
-    setActive(offer);
+    selectOffer(offer);
   };
 
   const handleMouseLeave = () => {
-    setActive(null);
+    selectOffer(null);
   };
 
   return (

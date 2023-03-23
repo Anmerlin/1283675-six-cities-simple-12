@@ -10,8 +10,6 @@ function useMap(
   const isRenderedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    // let isMounted = true;
-    // if (isMounted) {
     if (mapRef.current !== null && !isRenderedRef.current) {
       const instance = new Map(mapRef.current, {
         center: {
@@ -34,10 +32,6 @@ function useMap(
       setMap(instance);
       isRenderedRef.current = true;
     }
-
-    // return () => {
-    //   isMounted = false;
-    // };
   }, [mapRef, city]);
 
   return map;

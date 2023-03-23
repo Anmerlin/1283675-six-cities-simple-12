@@ -16,13 +16,13 @@ const iconSize: PointTuple = [MarkerIcon.Size.Width, MarkerIcon.Size.Height];
 const iconAnchor: PointTuple = [MarkerIcon.Size.Width / 2, MarkerIcon.Size.Height];
 
 const defaultCustomIcon = new Icon({
-  iconUrl: MarkerIcon.Default,
+  iconUrl: MarkerIcon.Image.Default,
   iconSize,
   iconAnchor
 });
 
 const currentCustomIcon = new Icon({
-  iconUrl: MarkerIcon.Active,
+  iconUrl: MarkerIcon.Image.Active,
   iconSize,
   iconAnchor
 });
