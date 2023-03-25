@@ -3,12 +3,12 @@ import { OfferCards, OfferCard } from 'types/offer';
 import { Offers, Map, City } from 'components';
 
 type MainProps = {
-  rentalOffersCount: number;
   offers: OfferCards;
 }
 
-function MainContent({ rentalOffersCount, offers }: MainProps): JSX.Element {
+function MainContent({ offers }: MainProps): JSX.Element {
   const [activeCard, setActiveCard] = useState<OfferCard | null>(null);
+  const changeActive = (data: OfferCard | null) => setActiveCard(data);
 
   return (
     <>
@@ -22,7 +22,7 @@ function MainContent({ rentalOffersCount, offers }: MainProps): JSX.Element {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{rentalOffersCount} places to stay in Amsterdam</b>
+            <b className="places__found">{offers.length} places to stay in Amsterdam</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex={0}>
@@ -40,7 +40,7 @@ function MainContent({ rentalOffersCount, offers }: MainProps): JSX.Element {
               </ul>
             </form>
 
-            <Offers offers={offers} setActive={setActiveCard} />
+            <Offers offers={offers} setActive={changeActive} />
 
           </section>
           <div className="cities__right-section">
@@ -48,6 +48,7 @@ function MainContent({ rentalOffersCount, offers }: MainProps): JSX.Element {
               city={offers[0].city}
               offers={offers}
               selectedOffer={activeCard}
+              classValue={'cities'}
             />
           </div>
         </div>

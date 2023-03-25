@@ -33,15 +33,15 @@ const setParamsModifier = (location: string, id: string | undefined, param?: str
 function Layout() {
   const { pathname } = useLocation();
 
-  const { id } = useParams();
+  const { id: offerId } = useParams();
 
   return (
     <>
       <Helmet>
-        <title>{setParamsModifier(pathname, id, 'title')}</title>
+        <title>{setParamsModifier(pathname, offerId, 'title')}</title>
       </Helmet>
       <Header />
-      <main className={`page__main page__main--${setParamsModifier(pathname, id)}`}>
+      <main className={`page__main page__main--${setParamsModifier(pathname, offerId)}`}>
         <Outlet />
       </main>
     </>

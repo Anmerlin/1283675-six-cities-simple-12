@@ -1,10 +1,9 @@
-import { Dispatch, SetStateAction } from 'react';
 import { OfferCards, OfferCard } from 'types/offer';
 import { Offer } from 'components';
 
 type OfferListProps = {
   offers: OfferCards;
-  setActive: Dispatch<SetStateAction<OfferCard | null>>;
+  setActive?: (data: OfferCard | null) => void;
 }
 
 function OffersList({ offers, setActive }: OfferListProps): JSX.Element {
