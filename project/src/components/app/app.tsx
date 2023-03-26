@@ -3,22 +3,22 @@ import { AppRoute } from 'const';
 import { OfferCards } from 'types/offer';
 import { ReviewOfferCards } from 'types/review';
 import { MainScreen, LoginScreen, OfferScreen } from 'pages';
-import { Layout, PageNotFound } from 'components';
+import { Layout, PageNotFound, ScrollTop } from 'components';
 
 type AppScreenProps = {
-  rentalOffersCount: number;
   offers: OfferCards;
   reviews: ReviewOfferCards;
 }
 
-function App({ rentalOffersCount, offers, reviews }: AppScreenProps): JSX.Element {
+function App({ offers, reviews }: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
+      <ScrollTop />
       <Routes>
         <Route path={AppRoute.Main} element={<Layout />}>
           <Route
             index
-            element={<MainScreen rentalOffersCount={rentalOffersCount} offers={offers} />}
+            element={<MainScreen offers={offers} />}
           />
           <Route
             path={AppRoute.Login}
@@ -26,10 +26,10 @@ function App({ rentalOffersCount, offers, reviews }: AppScreenProps): JSX.Elemen
           />
           <Route
             path={AppRoute.OfferById}
-            element={<OfferScreen />}
+            element={<OfferScreen reviews={reviews} offers={offers} />}
           />
           <Route
-            path='*'
+            path={AppRoute.NotFound}
             element={<PageNotFound />}
           />
         </Route>

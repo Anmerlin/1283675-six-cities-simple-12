@@ -53,8 +53,9 @@ function ReviewForm(): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
+        minLength={MIN_LENGTH_INPUT}
+        maxLength={MAX_LENGTH_INPUT}
         onChange={handleFieldChange}
-        value={formData.review}
       />
 
       <div className="reviews__button-wrapper">

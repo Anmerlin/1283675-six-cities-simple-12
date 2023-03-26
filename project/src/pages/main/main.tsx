@@ -2,13 +2,12 @@ import { OfferCards } from 'types/offer';
 import { Main } from 'components';
 
 type MainScreenProps = {
-  rentalOffersCount: number;
   offers: OfferCards;
 }
 
-function MainScreen({ rentalOffersCount, offers }: MainScreenProps): JSX.Element {
+function MainScreen({ offers }: MainScreenProps): JSX.Element {
   return (
-    <Main rentalOffersCount={rentalOffersCount} offers={offers} />
+    <Main offers={offers} />
   );
 }
 

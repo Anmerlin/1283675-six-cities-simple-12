@@ -15,7 +15,7 @@ export const offers: OfferCards = [
     price: 120,
     rating: 3.8,
     title: 'Beautiful & luxurious apartment at great location',
-    type: 'Apartment',
+    type: 'apartment',
     bedrooms: 3,
     maxAdults: 4,
     goods: [
@@ -63,7 +63,7 @@ export const offers: OfferCards = [
     price: 80,
     rating: 4,
     title: 'Wood and stone place',
-    type: 'Private room',
+    type: 'room',
     bedrooms: 1,
     maxAdults: 1,
     goods: [
@@ -105,7 +105,7 @@ export const offers: OfferCards = [
     price: 132,
     rating: 4,
     title: 'Canal View Prinsengracht',
-    type: 'Apartment',
+    type: 'apartment',
     bedrooms: 1,
     maxAdults: 2,
     goods: [
@@ -146,7 +146,7 @@ export const offers: OfferCards = [
     price: 180,
     rating: 5,
     title: 'Nice, cozy, warm big bed apartment',
-    type: 'Apartment',
+    type: 'apartment',
     bedrooms: 1,
     maxAdults: 1,
     goods: [

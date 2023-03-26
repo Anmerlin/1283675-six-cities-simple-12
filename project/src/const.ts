@@ -3,6 +3,7 @@ export enum AppRoute {
   Main = '/',
   Offer = '/offer',
   OfferById = '/offer/:id',
+  NotFound = '*',
 }
 
 export enum MainClassModifierByPage {
@@ -44,8 +45,6 @@ export const housingType = {
   house: 'House',
   hotel: 'Hotel',
 };
-
-export const MAX_RATING = 5;
 
 export const RatingScores = [
   {

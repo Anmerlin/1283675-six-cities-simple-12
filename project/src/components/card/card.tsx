@@ -1,31 +1,28 @@
-import { Dispatch, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
+import { housingType } from 'const';
 import { OfferCard } from 'types/offer';
-import { MAX_RATING } from 'const';
+import { Rating } from 'components';
 
 type CardProps = {
   offer: OfferCard;
-  selectOffer: Dispatch<SetStateAction<OfferCard | null>>;
+  selectOffer?: (value: OfferCard | null) => void;
 }
 
 function Card({ offer, selectOffer }: CardProps): JSX.Element {
   const { id, isPremium, previewImage, price, rating, title, type } = offer;
+  const currentType = housingType[type as keyof typeof housingType]; // спросить
 
-  const ratingStyleValue = Math.round(rating / MAX_RATING) * 100;
-
-  const handleMouseEnter = () => {
-    selectOffer(offer);
-  };
-
-  const handleMouseLeave = () => {
-    selectOffer(null);
+  const handleOfferHover = (value: OfferCard | null) => {
+    if (selectOffer) {
+      selectOffer(value);
+    }
   };
 
   return (
     <article
       className="cities__card place-card"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => { handleOfferHover(offer); }}
+      onMouseLeave={() => { handleOfferHover(null); }}
     >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
 
@@ -40,18 +37,14 @@ function Card({ offer, selectOffer }: CardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
+        </div>
 
-        </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{ width: `${ratingStyleValue}%` }}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+        <Rating rating={rating} classValue={'place-card'} />
+
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{currentType}</p>
       </div>
     </article>
   );
