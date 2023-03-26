@@ -1,5 +1,5 @@
-import { useRef, useEffect } from 'react';
-import { Icon, Marker, PointTuple } from 'leaflet';
+import { useState, useRef, useEffect } from 'react';
+import { Icon, Marker, LayerGroup, PointTuple } from 'leaflet';
 import { MarkerIcon } from 'const';
 import { City } from 'types/city';
 import { OfferCard, OfferCards } from 'types/offer';
@@ -10,7 +10,7 @@ type MapProps = {
   city: City;
   offers: OfferCards;
   selectedOffer: OfferCard | null;
-  classValue: string;
+  className?: string;
 };
 
 const iconSize: PointTuple = [MarkerIcon.Size.Width, MarkerIcon.Size.Height];
@@ -29,27 +29,68 @@ const currentCustomIcon = new Icon({
 });
 
 function Map(props: MapProps): JSX.Element {
-  const { city, offers, selectedOffer, classValue } = props;
+  const { city, offers, selectedOffer, className } = props;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
+  const [currentCity, setCurrentCity] = useState<City['name']>(city.name);
+
   useEffect(() => {
     if (map) {
-      offers.forEach((offer) => {
-        const marker = new Marker({
-          lat: offer.location.latitude,
-          lng: offer.location.longitude
-        });
+      if (currentCity !== city.name) {
+        map.flyTo(
+          [
+            city.location.latitude,
+            city.location.longitude
+          ],
+          city.location.zoom,
+          {
+            animate: true,
+            duration: 1
+          }
+        );
 
-        marker
-          .setIcon(offer.id === selectedOffer?.id ? currentCustomIcon : defaultCustomIcon)
-          .addTo(map);
-      });
+        setCurrentCity(city.name);
+      }
+
+      // offers.forEach((offer) => {
+      //   const marker = new Marker({
+      //     lat: offer.location.latitude,
+      //     lng: offer.location.longitude
+      //   });
+
+      //   marker
+      //     .setIcon(offer.id === selectedOffer?.id ? currentCustomIcon : defaultCustomIcon)
+      //     .addTo(map);
+      // });
+
+      const markers = offers.map(
+        (offer) =>
+          new Marker(
+            {
+              lat: offer.location.latitude,
+              lng: offer.location.longitude,
+            },
+            {
+              icon:
+                offer.id === selectedOffer?.id
+                  ? currentCustomIcon
+                  : defaultCustomIcon,
+            }
+          )
+      );
+
+      const markersLayer = new LayerGroup(markers);
+      markersLayer.addTo(map);
+
+      return () => {
+        map.removeLayer(markersLayer);
+      };
     }
-  }, [map, offers, selectedOffer]);
+  }, [city, currentCity, map, offers, selectedOffer]);
 
-  return <section className={`${classValue}__map map`} ref={mapRef} />;
+  return <section className={`${className ? className : ''} map`} ref={mapRef} />;
 }
 
 export default Map;

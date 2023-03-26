@@ -32,16 +32,16 @@ export const offers: OfferCards = [
     ],
     description: 'This is a place for dreamers to reset, reflect, and create. Designed with a slow pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     city: {
-      name: 'Amsterdam',
+      name: 'Paris',
       location: {
-        latitude: 52.37454,
-        longitude: 4.897976,
+        latitude: 48.85661,
+        longitude: 2.351499,
         zoom: 12,
       }
     },
     location: {
-      latitude: 52.3909553943508,
-      longitude: 4.85309666406198,
+      latitude: 48.862610000000004,
+      longitude: 2.369499,
       zoom: 16,
     },
     host: {

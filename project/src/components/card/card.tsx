@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { housingType } from 'const';
 import { OfferCard } from 'types/offer';
+import { HousingTypes } from 'types/housing';
+import { housingType } from 'const';
 import { Rating } from 'components';
 
 type CardProps = {
@@ -10,10 +11,10 @@ type CardProps = {
 
 function Card({ offer, selectOffer }: CardProps): JSX.Element {
   const { id, isPremium, previewImage, price, rating, title, type } = offer;
-  const currentType = housingType[type as keyof typeof housingType]; // спросить
+  const currentType = housingType[type as HousingTypes];
 
   const handleOfferHover = (value: OfferCard | null) => {
-    if (selectOffer) {
+    if (typeof selectOffer === 'function') {
       selectOffer(value);
     }
   };
@@ -21,8 +22,8 @@ function Card({ offer, selectOffer }: CardProps): JSX.Element {
   return (
     <article
       className="cities__card place-card"
-      onMouseEnter={() => { handleOfferHover(offer); }}
-      onMouseLeave={() => { handleOfferHover(null); }}
+      onMouseEnter={() => handleOfferHover(offer)}
+      onMouseLeave={() => handleOfferHover(null)}
     >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
 
@@ -39,7 +40,7 @@ function Card({ offer, selectOffer }: CardProps): JSX.Element {
           </div>
         </div>
 
-        <Rating rating={rating} classValue={'place-card'} />
+        <Rating rating={rating} prefixCls={'place-card'} />
 
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>

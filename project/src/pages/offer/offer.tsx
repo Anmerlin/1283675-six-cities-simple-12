@@ -1,5 +1,6 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { OfferCards } from 'types/offer';
+import { HousingTypes } from 'types/housing';
 import { ReviewOfferCards } from 'types/review';
 import { AppRoute, housingType } from 'const';
 import { Offers, Rating, Reviews, Form, Map } from 'components';
@@ -32,21 +33,22 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
     host,
   } = currentOffer;
 
-  const photos = images.map((image, index) => ({ image, index }));
-  const peculiarities = goods.map((good, index) => ({ good, index }));
   const nearbyOffers = offers.filter((offer) => offer.id !== currentOffer.id);
-  const currentType = housingType[type as keyof typeof housingType]; // спросить
+  const currentType = housingType[type as HousingTypes];
 
   return (
     <>
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            {photos.map((photo) => (
-              <div className="property__image-wrapper" key={photo.index}>
-                <img className="property__image" src={photo.image} alt="Photo studio" />
-              </div>
-            ))}
+            {images.map((image, index) => {
+              const keyValue = `${index}-${image}`;
+              return (
+                <div className="property__image-wrapper" key={keyValue}>
+                  <img className="property__image" src={image} alt="Photo studio" />
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className="property__container container">
@@ -56,7 +58,7 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
               <h1 className="property__name">{title}</h1>
             </div>
 
-            <Rating rating={rating} classValue={'property'}>
+            <Rating rating={rating} prefixCls={'property'}>
               <span className="property__rating-value rating__value">{rating}</span>
             </Rating>
 
@@ -72,9 +74,12 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
             <div className="property__inside">
               <h2 className="property__inside-title">What&apos;s inside</h2>
               <ul className="property__inside-list">
-                {peculiarities.map((peculiarity) => (
-                  <li className="property__inside-item" key={peculiarity.index}>{peculiarity.good}</li>
-                ))}
+                {goods.map((good, index) => {
+                  const keyValue = `${index}-${good}`;
+                  return (
+                    <li className="property__inside-item" key={keyValue}>{good}</li>
+                  );
+                })}
               </ul>
             </div>
             <div className="property__host">
@@ -102,7 +107,7 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
           city={currentOffer.city}
           offers={offers}
           selectedOffer={currentOffer}
-          classValue={'property'}
+          className={'property__map'}
         />
 
       </section>
