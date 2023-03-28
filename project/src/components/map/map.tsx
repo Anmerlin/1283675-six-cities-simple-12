@@ -54,17 +54,6 @@ function Map(props: MapProps): JSX.Element {
         setCurrentCity(city.name);
       }
 
-      // offers.forEach((offer) => {
-      //   const marker = new Marker({
-      //     lat: offer.location.latitude,
-      //     lng: offer.location.longitude
-      //   });
-
-      //   marker
-      //     .setIcon(offer.id === selectedOffer?.id ? currentCustomIcon : defaultCustomIcon)
-      //     .addTo(map);
-      // });
-
       const markers = offers.map(
         (offer) =>
           new Marker(
@@ -73,10 +62,7 @@ function Map(props: MapProps): JSX.Element {
               lng: offer.location.longitude,
             },
             {
-              icon:
-                offer.id === selectedOffer?.id
-                  ? currentCustomIcon
-                  : defaultCustomIcon,
+              icon: offer.id === selectedOffer?.id ? currentCustomIcon : defaultCustomIcon,
             }
           )
       );
