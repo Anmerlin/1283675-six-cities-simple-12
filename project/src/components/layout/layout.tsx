@@ -1,47 +1,41 @@
 import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { AppRoute, MainClassModifierByPage, PagesTitle } from 'const';
+import { AppRoute, PagesOption } from 'const';
+import { useAppSelector } from 'hooks';
 import { Header } from 'components';
 
-const setParamsModifier = (location: string, id: string | undefined, param?: string) => {
-  const appRouteOffer = (id) ? AppRoute.OfferById.replace(/:id/, id) : AppRoute.Offer;
+const getPagesOption = (location: string, id: string | undefined, isNotEmptyOffers: boolean) => {
+  const appRouteOffer = id ? AppRoute.OfferById.replace(/:id/, id) : AppRoute.Offer;
 
   switch (location) {
     case AppRoute.Main:
-      if (param === 'title') {
-        return PagesTitle.Main;
+      if (!isNotEmptyOffers) {
+        return PagesOption.Empty;
       }
-      return MainClassModifierByPage.Main;
+      return PagesOption.Main;
     case AppRoute.Login:
-      if (param === 'title') {
-        return PagesTitle.Login;
-      }
-      return MainClassModifierByPage.Login;
+      return PagesOption.Login;
     case appRouteOffer:
-      if (param === 'title') {
-        return PagesTitle.Offer;
-      }
-      return MainClassModifierByPage.Offer;
+      return PagesOption.Offer;
     default:
-      if (param === 'title') {
-        return PagesTitle.NotFound;
-      }
-      return MainClassModifierByPage.NotFound;
+      return PagesOption.NotFound;
   }
 };
 
 function Layout() {
   const { pathname } = useLocation();
-
   const { id: offerId } = useParams();
+
+  const offers = useAppSelector((state) => state.offers);
+  const { title, postfixCls } = getPagesOption(pathname, offerId, Boolean(offers.length));
 
   return (
     <>
       <Helmet>
-        <title>{setParamsModifier(pathname, offerId, 'title')}</title>
+        <title>{title}</title>
       </Helmet>
       <Header />
-      <main className={`page__main page__main--${setParamsModifier(pathname, offerId)}`}>
+      <main className={`page__main page__main--${postfixCls}`}>
         <Outlet />
       </main>
     </>

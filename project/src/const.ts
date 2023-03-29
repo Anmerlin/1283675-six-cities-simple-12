@@ -6,26 +6,33 @@ export enum AppRoute {
   NotFound = '*',
 }
 
-export enum MainClassModifierByPage {
-  Main = 'index',
-  Login = 'login',
-  Offer = 'property',
-  Empty = 'index-empty',
-  NotFound = 'not-found'
-}
-
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
 
-export const PagesTitle = {
-  Main: 'Six cities simple',
-  Login: 'Six cities simple: authorizations',
-  Empty: 'Six cities simple: no places',
-  Offer: 'Six cities simple: offer',
-  NotFound: 'Six cities simple: page not found'
+export const PagesOption = {
+  Main: {
+    title: 'Six cities simple',
+    postfixCls: 'index'
+  },
+  Empty: {
+    title: 'Six cities simple: no places',
+    postfixCls: 'index-empty'
+  },
+  Login: {
+    title: 'Six cities simple: authorizations',
+    postfixCls: 'login'
+  },
+  Offer: {
+    title: 'Six cities simple: offer',
+    postfixCls: 'property'
+  },
+  NotFound: {
+    title: 'Six cities simple: page not found',
+    postfixCls: 'not-found'
+  }
 } as const;
 
 export const Cities = [
@@ -37,7 +44,7 @@ export const Cities = [
   'Dusseldorf',
 ] as const;
 
-export const DEFAULT_CITY = 'Amsterdam';
+export const DEFAULT_CITY: typeof Cities[number] = 'Paris';
 
 export const housingType = {
   apartment: 'Apartment',

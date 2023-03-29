@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { ReviewOfferCards } from 'types/review';
 import { Review } from 'components';
 
@@ -10,9 +9,9 @@ function ReviewList({ reviews }: ReviewsListProps): JSX.Element {
   return (
     <ul className="reviews__list">
       {reviews.map((review) => (
-        <Fragment key={review.id}>
+        <li className="reviews__item" key={review.id}>
           <Review review={review} />
-        </Fragment>
+        </li>
       ))}
     </ul>
   );

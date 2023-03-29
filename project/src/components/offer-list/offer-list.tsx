@@ -9,7 +9,7 @@ type OfferListProps = {
 function OffersList({ offers, setActive }: OfferListProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers.map((offer) => <Offer key={offer.id} offer={offer} selectOffer={setActive}/>)}
+      {offers.map((offer) => <Offer key={offer.id} offer={offer} selectOffer={setActive} />)}
     </div>
   );
 }

@@ -5,25 +5,26 @@ type ReviewProps = {
   review: ReviewOfferCard;
 };
 
-function getDate(dateValue: string, property?: boolean): string {
+function getDate(dateValue: string): string[] {
   const date = new Date(dateValue);
 
-  if (property) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
 
-    return [year, month, day].join('-');
-  }
+  const dateProperty = [year, month, day].join('-');
 
-  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+  const dateText = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+
+  return [dateProperty, dateText];
 }
 
 function Review({ review }: ReviewProps): JSX.Element {
   const { user, rating, comment, date } = review;
+  const [property, text] = getDate(date);
 
   return (
-    <li className="reviews__item">
+    <>
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img className="reviews__avatar user__avatar" src={user.avatarUrl} width="54" height="54" alt="Reviews avatar" />
@@ -32,12 +33,12 @@ function Review({ review }: ReviewProps): JSX.Element {
       </div>
       <div className="reviews__info">
 
-        <Rating rating={rating} classValue={'reviews'} />
+        <Rating rating={rating} prefixCls={'reviews'} />
 
         <p className="reviews__text">{comment}</p>
-        <time className="reviews__time" dateTime={getDate(date, true)}>{getDate(date)}</time>
+        <time className="reviews__time" dateTime={property}>{text}</time>
       </div>
-    </li>
+    </>
   );
 }
 

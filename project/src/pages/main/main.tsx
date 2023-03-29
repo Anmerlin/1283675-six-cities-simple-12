@@ -1,13 +1,21 @@
-import { OfferCards } from 'types/offer';
-import { Main } from 'components';
+import { useAppSelector } from 'hooks';
+import { CityList, Main, EmptyList, } from 'components';
 
-type MainScreenProps = {
-  offers: OfferCards;
-}
+function MainScreen(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
 
-function MainScreen({ offers }: MainScreenProps): JSX.Element {
   return (
-    <Main offers={offers} />
+    <>
+      <h1 className="visually-hidden">Cities</h1>
+
+      <CityList />
+
+      <div className="cities">
+
+        {offers.length ? <Main /> : <EmptyList />}
+
+      </div>
+    </>
   );
 }
 

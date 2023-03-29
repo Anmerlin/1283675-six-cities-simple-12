@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { HelmetProvider } from 'react-helmet-async';
+import { Provider } from 'react-redux';
+import { store } from 'store';
 import { App } from 'components';
-import { offers } from './mocks/offers';
-import { reviews } from './mocks/reviews';
+import { offers } from 'mocks/offers';
+import { reviews } from 'mocks/reviews';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -11,11 +12,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <HelmetProvider>
+    <Provider store={store}>
       <App
         offers={offers}
         reviews={reviews}
       />
-    </HelmetProvider>
+    </Provider>
   </React.StrictMode>,
 );

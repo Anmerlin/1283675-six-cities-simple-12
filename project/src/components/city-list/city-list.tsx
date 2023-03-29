@@ -1,37 +1,44 @@
-import { Link } from 'react-router-dom';
-import { Cities, DEFAULT_CITY } from 'const';
-
-const setActiveCity = (city: string): JSX.Element => {
-  if (city === DEFAULT_CITY) {
-    return (
-      <a className="locations__item-link tabs__item tabs__item--active">
-        <span>{city}</span>
-      </a>
-    );
-  }
-
-  return (
-    <Link className="locations__item-link tabs__item" to="#">
-      <span>{city}</span>
-    </Link>
-  );
-};
+import { useAppSelector, useAppDispatch } from 'hooks';
+import { setCity, updateOffers } from 'store/action';
+import { Cities } from 'const';
 
 function CityList(): JSX.Element {
-  return (
-    <ul className="locations__list tabs__list">
-      {
-        Cities.map((city, index) => {
-          const keyValue = `${index}-${city}`;
+  const selectedCity = useAppSelector((state) => state.selectedCity);
+  const dispatch = useAppDispatch();
 
-          return (
-            <li className="locations__item" key={keyValue}>
-              {setActiveCity(city)}
-            </li>
-          );
-        })
-      }
-    </ul>
+  const onChangeCity = (city: typeof Cities[number]) => {
+    dispatch(setCity({ targetCity: city }));
+    dispatch(updateOffers());
+  };
+
+  return (
+    <div className="tabs">
+      <section className="locations container">
+        <ul className="locations__list tabs__list">
+          {
+            Cities.map((city, index) => {
+              const keyValue = `${index}-${city}`;
+              const isActive = city === selectedCity;
+
+              return (
+                <li className="locations__item" key={keyValue}>
+                  <a
+                    className={`locations__item-link tabs__item ${isActive ? 'tabs__item--active' : ''}`}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      onChangeCity(city);
+                    }}
+                    href="#"
+                  >
+                    <span>{city}</span>
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </section>
+    </div >
   );
 }
 
