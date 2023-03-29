@@ -7,7 +7,7 @@ type RatingProps = {
 const MAX_RATING = 5;
 
 function Rating({ rating, prefixCls, children }: RatingProps): JSX.Element {
-  const ratingStyleValue = Math.round(rating / MAX_RATING) * 100;
+  const ratingStyleValue = (Math.round(rating) / MAX_RATING) * 100;
 
   return (
     <div className={`${prefixCls}__rating rating`}>

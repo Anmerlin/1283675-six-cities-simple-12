@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from 'hooks';
-import { setCity, updateOffers } from 'store/action';
+import { changeCity, updateOffers } from 'store/action';
 import { Cities } from 'const';
 
 function CityList(): JSX.Element {
@@ -7,7 +7,7 @@ function CityList(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const onChangeCity = (city: typeof Cities[number]) => {
-    dispatch(setCity({ targetCity: city }));
+    dispatch(changeCity({ targetCity: city }));
     dispatch(updateOffers());
   };
 

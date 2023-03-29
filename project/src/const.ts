@@ -46,6 +46,15 @@ export const Cities = [
 
 export const DEFAULT_CITY: typeof Cities[number] = 'Paris';
 
+export const SortingOptions = [
+  'Popular',
+  'Price: low to high',
+  'Price: high to low',
+  'Top rated first',
+] as const;
+
+export const DEFAULT_SORTING: typeof SortingOptions[number] = 'Popular';
+
 export const housingType = {
   apartment: 'Apartment',
   room: 'Private Room',
