@@ -1,7 +1,8 @@
+import { getSelectedCity } from 'store/selectors';
 import { useAppSelector } from 'hooks';
 
 function EmptyList(): JSX.Element {
-  const selectedCity = useAppSelector((state) => state.selectedCity);
+  const selectedCity = useAppSelector(getSelectedCity);
 
   return (
     <div className="cities__places-container cities__places-container--empty container">

@@ -7,6 +7,7 @@ export { default as EmptyList } from './empty-list/empty-list';
 export { default as Offers } from './offer-list/offer-list';
 export { default as Offer } from './card/card';
 export { default as PageNotFound } from './page-not-found/page-not-found';
+export { default as SortingForm } from './sorting-form/sorting-form';
 export { default as Map } from './map/map';
 export { default as CityList } from './city-list/city-list';
 export { default as Reviews } from './review-list/review-list';

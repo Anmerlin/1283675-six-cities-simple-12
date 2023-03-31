@@ -1,3 +1,6 @@
+import { CityName } from 'types/city';
+import { SortingOption } from 'types/sorting';
+
 export enum AppRoute {
   Login = '/login',
   Main = '/',
@@ -11,6 +14,8 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const plural = new Intl.PluralRules('en-US');
 
 export const PagesOption = {
   Main: {
@@ -35,16 +40,27 @@ export const PagesOption = {
   }
 } as const;
 
-export const Cities = [
+export const cityNames = [
   'Paris',
   'Cologne',
   'Brussels',
   'Amsterdam',
   'Hamburg',
   'Dusseldorf',
-] as const;
+];
 
-export const DEFAULT_CITY: typeof Cities[number] = 'Paris';
+export const DEFAULT_CITY: CityName = 'Paris';
+
+export const sortingOptions = [
+  'Popular',
+  'Price: low to high',
+  'Price: high to low',
+  'Top rated first',
+];
+
+export const DEFAULT_SORTING: SortingOption = 'Popular';
+
+export const DEFAULT_SELECT_CARD = -1;
 
 export const housingType = {
   apartment: 'Apartment',

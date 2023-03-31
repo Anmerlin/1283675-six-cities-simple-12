@@ -41,14 +41,13 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            {images.map((image, index) => {
-              const keyValue = `${index}-${image}`;
-              return (
-                <div className="property__image-wrapper" key={keyValue}>
+            {
+              images.map((image, index) => (
+                <div className="property__image-wrapper" key={image}>
                   <img className="property__image" src={image} alt="Photo studio" />
                 </div>
-              );
-            })}
+              ))
+            }
           </div>
         </div>
         <div className="property__container container">
@@ -74,12 +73,11 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
             <div className="property__inside">
               <h2 className="property__inside-title">What&apos;s inside</h2>
               <ul className="property__inside-list">
-                {goods.map((good, index) => {
-                  const keyValue = `${index}-${good}`;
-                  return (
-                    <li className="property__inside-item" key={keyValue}>{good}</li>
-                  );
-                })}
+                {
+                  goods.map((good) => (
+                    <li className="property__inside-item" key={good}>{good}</li>
+                  ))
+                }
               </ul>
             </div>
             <div className="property__host">
@@ -106,7 +104,7 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
         <Map
           city={currentOffer.city}
           offers={offers}
-          selectedOffer={currentOffer}
+          // selectedOffer={currentOffer}
           className={'property__map'}
         />
 
