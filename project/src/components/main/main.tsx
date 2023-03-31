@@ -1,43 +1,39 @@
-import { useState } from 'react';
-import { OfferCard } from 'types/offer';
+import { plural } from 'const';
+import { getSelectedCity, getOffers } from 'store/selectors';
 import { useAppSelector } from 'hooks';
 import { SortingForm, Offers, Map } from 'components';
 
-function getWordByCount(count: number): string {
-  const pluralRules = new Intl.PluralRules('en-US').select(count);
+function getTextByCount(count: number, city: string): string {
+  const pluralRules = plural.select(count);
   switch (pluralRules) {
     case 'one':
-      return 'place';
+      return `${count} place to stay in ${city}`;
     default:
-      return 'places';
+      return `${count} places to stay in ${city}`;
   }
 }
 
 function MainContent(): JSX.Element {
-  const [activeCard, setActiveCard] = useState<OfferCard | null>(null);
-  const changeActive = (data: OfferCard | null) => setActiveCard(data);
+  const selectedCity = useAppSelector(getSelectedCity);
+  const offers = useAppSelector(getOffers);
 
-  const selectedCity = useAppSelector((state) => state.selectedCity);
-  const offers = useAppSelector((state) => state.offers);
-
-  const word = getWordByCount(offers.length);
+  const placesFoundText = getTextByCount(offers.length, selectedCity);
 
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{offers.length} {word} to stay in {selectedCity}</b>
+        <b className="places__found">{placesFoundText}</b>
 
         <SortingForm />
 
-        <Offers offers={offers} setActive={changeActive} />
+        <Offers offers={offers} />
 
       </section>
       <div className="cities__right-section">
         <Map
           city={offers[0].city}
           offers={offers}
-          selectedOffer={activeCard}
           className={'cities__map'}
         />
       </div>

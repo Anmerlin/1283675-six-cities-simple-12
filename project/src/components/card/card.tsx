@@ -1,29 +1,35 @@
 import { Link } from 'react-router-dom';
+import { useAppDispatch } from 'hooks';
+import { selectOffer } from 'store/action';
 import { OfferCard } from 'types/offer';
 import { HousingTypes } from 'types/housing';
-import { housingType } from 'const';
+import { housingType, DEFAULT_SELECT_CARD } from 'const';
 import { Rating } from 'components';
 
 type CardProps = {
   offer: OfferCard;
-  selectOffer?: (value: OfferCard | null) => void;
 }
 
-function Card({ offer, selectOffer }: CardProps): JSX.Element {
+function Card({ offer }: CardProps): JSX.Element {
   const { id, isPremium, previewImage, price, rating, title, type } = offer;
+
+  const dispatch = useAppDispatch();
+
   const currentType = housingType[type as HousingTypes];
 
-  const handleOfferHover = (value: OfferCard | null) => {
-    if (typeof selectOffer === 'function') {
-      selectOffer(value);
-    }
+  const handleOfferHover = () => {
+    dispatch(selectOffer({ targetOffer: id }));
+  };
+
+  const handleOfferLeave = () => {
+    dispatch(selectOffer({ targetOffer: DEFAULT_SELECT_CARD }));
   };
 
   return (
     <article
       className="cities__card place-card"
-      onMouseEnter={() => handleOfferHover(offer)}
-      onMouseLeave={() => handleOfferHover(null)}
+      onMouseEnter={handleOfferHover}
+      onMouseLeave={handleOfferLeave}
     >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
 

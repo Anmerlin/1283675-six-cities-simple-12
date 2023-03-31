@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { HelmetProvider } from 'react-helmet-async';
 import { store } from 'store';
 import { App } from 'components';
 import { offers } from 'mocks/offers';
@@ -13,10 +14,12 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        offers={offers}
-        reviews={reviews}
-      />
+      <HelmetProvider>
+        <App
+          offers={offers}
+          reviews={reviews}
+        />
+      </HelmetProvider>
     </Provider>
   </React.StrictMode>,
 );

@@ -1,7 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Cities, SortingOptions } from 'const';
+import { CityName } from 'types/city';
+import { SortingOption } from 'types/sorting';
 
-export const changeCity = createAction<{targetCity: typeof Cities[number]}>('offer/changeCity');
+export const changeCity = createAction<{ targetCity: CityName }>('offer/changeCity');
 export const updateOffers = createAction('offer/updateOffers');
-export const sortOffers = createAction('offer/sortOffers');
-export const selectSorting = createAction<{targetSorting: typeof SortingOptions[number]}>('offer/selectSorting');
+export const selectSorting = createAction<{ targetSorting: SortingOption }>('offer/selectSorting');
+export const selectOffer = createAction<{ targetOffer: number }>('offer/selectOffer');

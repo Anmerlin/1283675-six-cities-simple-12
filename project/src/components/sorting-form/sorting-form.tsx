@@ -1,21 +1,21 @@
 import { SyntheticEvent, useState } from 'react';
-import { selectSorting, sortOffers } from 'store/action';
-import { SortingOptions } from 'const';
+import { selectSorting } from 'store/action';
+import { getSelectedSorting } from 'store/selectors';
+import { sortingOptions } from 'const';
+import { SortingOption } from 'types/sorting';
 import { useAppDispatch, useAppSelector } from 'hooks';
 
 function SortingForm(): JSX.Element {
-  const [activeOption, toggleOptions] = useState<boolean>(false);
+  const [isSortListOpened, setIsSortListOpened] = useState(false);
 
-  const selectedSorting = useAppSelector((state) => state.selectedSorting);
+  const selectedSorting = useAppSelector(getSelectedSorting);
   const dispatch = useAppDispatch();
 
-  // разобрать функцию на созвоне в частности смотрел отсюда https://stackoverflow.com/questions/42081549/typescript-react-event-types
   const handleSortingChange = (event: SyntheticEvent<HTMLLIElement, MouseEvent>) => {
     const target = event.target as HTMLLIElement;
 
-    dispatch(selectSorting({targetSorting: target.innerText as typeof SortingOptions[number]}));
-    dispatch(sortOffers());
-    toggleOptions(!activeOption);
+    dispatch(selectSorting({ targetSorting: target.textContent as SortingOption }));
+    setIsSortListOpened(!isSortListOpened);
   };
 
   return (
@@ -24,28 +24,26 @@ function SortingForm(): JSX.Element {
       <span
         className="places__sorting-type"
         tabIndex={0}
-        onClick={() => toggleOptions(!activeOption)}
+        onClick={() => setIsSortListOpened(!isSortListOpened)}
       >
         {selectedSorting}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select" />
         </svg>
       </span>
-      <ul className={`places__options places__options--custom ${activeOption ? 'places__options--opened' : ''}`}>
-        {SortingOptions.map((option, index) => {
-          const keyValue = `${index}-${option}`;
-          const isActive = option === selectedSorting;
-          return (
+      <ul className={`places__options places__options--custom ${isSortListOpened ? 'places__options--opened' : ''}`}>
+        {
+          sortingOptions.map((option) => (
             <li
-              className={`places__option ${isActive ? ' places__option--active' : ''}`}
+              className={`places__option ${option === selectedSorting ? ' places__option--active' : ''}`}
               tabIndex={0}
-              key={keyValue}
+              key={option}
               onClick={handleSortingChange}
             >
               {option}
             </li>
-          );
-        })}
+          ))
+        }
       </ul>
     </form>
   );
