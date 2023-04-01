@@ -1,16 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppRoute } from 'const';
-import { OfferCards } from 'types/offer';
-import { ReviewOfferCards } from 'types/review';
 import { MainScreen, LoginScreen, OfferScreen } from 'pages';
 import { Layout, PageNotFound, ScrollTop } from 'components';
 
-type AppScreenProps = {
-  offers: OfferCards;
-  reviews: ReviewOfferCards;
-}
-
-function App({ offers, reviews }: AppScreenProps): JSX.Element {
+function App(): JSX.Element {
   return (
     <BrowserRouter>
       <ScrollTop />
@@ -26,7 +19,7 @@ function App({ offers, reviews }: AppScreenProps): JSX.Element {
           />
           <Route
             path={AppRoute.OfferById}
-            element={<OfferScreen reviews={reviews} offers={offers} />}
+            element={<OfferScreen />}
           />
           <Route
             path={AppRoute.NotFound}

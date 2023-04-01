@@ -107,3 +107,11 @@ export const MarkerIcon = {
     Height: 40,
   },
 } as const;
+
+export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
+
+export enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}

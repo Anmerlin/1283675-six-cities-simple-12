@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from 'hooks';
-import { changeCity, updateOffers } from 'store/action';
+import { changeCity } from 'store/action';
 import { getSelectedCity } from 'store/selectors';
 import { CityName } from 'types/city';
 import { cityNames } from 'const';
@@ -10,7 +10,6 @@ function CityList(): JSX.Element {
 
   const onChangeCity = (city: CityName) => {
     dispatch(changeCity({ targetCity: city }));
-    dispatch(updateOffers());
   };
 
   return (
