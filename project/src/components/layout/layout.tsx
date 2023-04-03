@@ -1,9 +1,10 @@
 import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { getOffers } from 'store/selectors';
+import { getOffers, getOffersDataLoading } from 'store/selectors';
 import { AppRoute, PagesOption } from 'const';
 import { useAppSelector } from 'hooks';
 import { Header } from 'components';
+import { LoadingScreen } from 'pages';
 
 const getPagesOption = (location: string, id: string | undefined, isNotEmptyOffers: boolean) => {
   const appRouteOffer = id ? AppRoute.OfferById.replace(/:id/, id) : AppRoute.Offer;
@@ -27,8 +28,15 @@ function Layout() {
   const { pathname } = useLocation();
   const { id: offerId } = useParams();
 
+  const isOffersDataLoading = useAppSelector(getOffersDataLoading);
+  // спросить
   const offers = useAppSelector(getOffers);
+
   const { title, postfixCls } = getPagesOption(pathname, offerId, Boolean(offers.length));
+
+  if (isOffersDataLoading && !offers.length) {
+    return <LoadingScreen />;
+  }
 
   return (
     <>

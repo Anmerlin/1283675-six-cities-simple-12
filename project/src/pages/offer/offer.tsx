@@ -1,18 +1,13 @@
 import { Navigate, useParams } from 'react-router-dom';
-import { OfferCards } from 'types/offer';
 import { HousingTypes } from 'types/housing';
-import { ReviewOfferCards } from 'types/review';
 import { AppRoute, housingType } from 'const';
+import { useAppSelector } from 'hooks';
 import { Offers, Rating, Reviews, Form, Map } from 'components';
+import { reviews } from '../../mocks/reviews';
 
-type OfferScreenProps = {
-  offers: OfferCards;
-  reviews: ReviewOfferCards;
-};
-
-function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
+function OfferScreen(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
   const { id: offerId } = useParams();
-
   const currentOffer = offers.find((offer) => offer.id.toString() === offerId);
 
   if (!currentOffer) {
@@ -104,7 +99,6 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
         <Map
           city={currentOffer.city}
           offers={offers}
-          // selectedOffer={currentOffer}
           className={'property__map'}
         />
 

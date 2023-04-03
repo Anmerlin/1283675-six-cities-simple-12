@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { Icon, Marker, LayerGroup, PointTuple } from 'leaflet';
-import { MarkerIcon } from 'const';
+import { getSelectedOffer } from 'store/selectors';
 import { City, CityName } from 'types/city';
 import { OfferCards } from 'types/offer';
+import { MarkerIcon } from 'const';
+import { useAppSelector } from 'hooks';
 import useMap from 'hooks/use-map';
 import 'leaflet/dist/leaflet.css';
-import { useAppSelector } from 'hooks';
-import { getSelectedOffer } from 'store/selectors';
 
 type MapProps = {
   city: City;
