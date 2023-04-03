@@ -1,11 +1,12 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AppRoute } from 'const';
 import { MainScreen, LoginScreen, OfferScreen } from 'pages';
-import { Layout, PageNotFound, ScrollTop } from 'components';
+import { HistoryRouter, Layout, PageNotFound, ScrollTop } from 'components';
+import browserHistory from 'browser-history';
 
 function App(): JSX.Element {
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <ScrollTop />
       <Routes>
         <Route path={AppRoute.Main} element={<Layout />}>
@@ -27,7 +28,7 @@ function App(): JSX.Element {
           />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

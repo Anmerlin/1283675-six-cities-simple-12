@@ -1,7 +1,7 @@
 import './loading.css';
 
 function LoadingScreen(): JSX.Element {
-  return <p className='loading'>Loading ...</p>;
+  return <div className='loading'>Loading ...</div>;
 }
 
 export default LoadingScreen;

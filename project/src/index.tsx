@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+//import { ToastContainer } from 'react-toastify'; // к следующему таску
 import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
 import { store } from 'store';
 import { App } from 'components';
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
