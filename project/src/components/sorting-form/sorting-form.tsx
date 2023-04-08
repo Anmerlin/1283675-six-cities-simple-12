@@ -1,9 +1,9 @@
-import { SyntheticEvent, useState } from 'react';
-import { selectSorting } from 'store/action';
+import { useState } from 'react';
+import { selectSorting } from 'store/offer/action';
 import { getSelectedSorting } from 'store/selectors';
-import { sortingOptions } from 'const';
-import { SortingOption } from 'types/sorting';
 import { useAppDispatch, useAppSelector } from 'hooks';
+import { SortingType } from 'types/sorting';
+import { sortingOptions } from 'const';
 
 function SortingForm(): JSX.Element {
   const [isSortListOpened, setIsSortListOpened] = useState(false);
@@ -11,10 +11,8 @@ function SortingForm(): JSX.Element {
   const selectedSorting = useAppSelector(getSelectedSorting);
   const dispatch = useAppDispatch();
 
-  const handleSortingChange = (event: SyntheticEvent<HTMLLIElement, MouseEvent>) => {
-    const target = event.target as HTMLLIElement;
-
-    dispatch(selectSorting({ targetSorting: target.textContent as SortingOption }));
+  const handleSortingChange = (option: SortingType) => {
+    dispatch(selectSorting({ targetSorting: option }));
     setIsSortListOpened(!isSortListOpened);
   };
 
@@ -33,14 +31,14 @@ function SortingForm(): JSX.Element {
       </span>
       <ul className={`places__options places__options--custom ${isSortListOpened ? 'places__options--opened' : ''}`}>
         {
-          sortingOptions.map((option) => (
+          Object.values(sortingOptions).map((option) => (
             <li
-              className={`places__option ${option === selectedSorting ? ' places__option--active' : ''}`}
+              className={`places__option ${option.value === selectedSorting ? ' places__option--active' : ''}`}
               tabIndex={0}
-              key={option}
-              onClick={handleSortingChange}
+              key={option.value}
+              onClick={() => handleSortingChange(option.value)}
             >
-              {option}
+              {option.text}
             </li>
           ))
         }

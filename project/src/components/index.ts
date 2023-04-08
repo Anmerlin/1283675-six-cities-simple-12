@@ -16,3 +16,4 @@ export { default as Review } from './review/review';
 export { default as Form } from './review-form/review-form';
 export { default as Rating } from './rating/rating';
 export { default as ScrollTop } from './scroll-top/scroll-top';
+export { default as HistoryRouter } from './history-route/history-route';

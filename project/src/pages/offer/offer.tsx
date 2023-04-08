@@ -1,12 +1,13 @@
 import { Navigate, useParams } from 'react-router-dom';
-import { HousingTypes } from 'types/housing';
-import { AppRoute, housingType } from 'const';
 import { useAppSelector } from 'hooks';
+import { HousingTypes } from 'types/housing';
+import { getFilterOffers } from 'store/selectors';
+import { AppRoute, housingType } from 'const';
 import { Offers, Rating, Reviews, Form, Map } from 'components';
-import { reviews } from '../../mocks/reviews';
+import { reviews } from 'mocks/reviews';
 
 function OfferScreen(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getFilterOffers);
   const { id: offerId } = useParams();
   const currentOffer = offers.find((offer) => offer.id.toString() === offerId);
 

@@ -1,5 +1,5 @@
 import { CityName } from 'types/city';
-import { SortingOption } from 'types/sorting';
+import { SortingOption, SortingType } from 'types/sorting';
 
 export enum AppRoute {
   Login = '/login',
@@ -51,14 +51,26 @@ export const cityNames = [
 
 export const DEFAULT_CITY: CityName = 'Paris';
 
-export const sortingOptions = [
-  'Popular',
-  'Price: low to high',
-  'Price: high to low',
-  'Top rated first',
-];
+export const sortingOptions: SortingOption = {
+  A: {
+    text: 'Popular',
+    value: 'A',
+  },
+  B: {
+    text: 'Price: low to high',
+    value: 'B',
+  },
+  C: {
+    text: 'Price: high to low',
+    value: 'C',
+  },
+  D: {
+    text: 'Top rated first',
+    value: 'D',
+  },
+};
 
-export const DEFAULT_SORTING: SortingOption = 'Popular';
+export const DEFAULT_SORTING: SortingType = 'A';
 
 export const DEFAULT_SELECT_CARD = -1;
 
@@ -107,8 +119,6 @@ export const MarkerIcon = {
     Height: 40,
   },
 } as const;
-
-export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
 
 export enum APIRoute {
   Offers = '/hotels',

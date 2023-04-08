@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from 'hooks';
-import { changeCity } from 'store/action';
+import { changeCity } from 'store/offer/action';
 import { getSelectedCity } from 'store/selectors';
 import { CityName } from 'types/city';
 import { cityNames } from 'const';
@@ -21,11 +21,11 @@ function CityList(): JSX.Element {
               <li className="locations__item" key={city}>
                 <a
                   className={`locations__item-link tabs__item ${city === selectedCity ? 'tabs__item--active' : ''}`}
+                  href="/#"
                   onClick={(event) => {
                     event.preventDefault();
                     onChangeCity(city);
                   }}
-                  href="#"
                 >
                   <span>{city}</span>
                 </a>

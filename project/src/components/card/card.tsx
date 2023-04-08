@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from 'hooks';
-import { selectOffer } from 'store/action';
+import { selectOffer } from 'store/offer/action';
 import { OfferCard } from 'types/offer';
 import { HousingTypes } from 'types/housing';
 import { housingType, DEFAULT_SELECT_CARD } from 'const';

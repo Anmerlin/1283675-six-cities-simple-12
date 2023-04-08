@@ -1,3 +1,9 @@
-import { sortingOptions } from 'const';
+export type SortingType = 'A' | 'B' | 'C' | 'D';
 
-export type SortingOption = typeof sortingOptions[number];
+export type SortingOption = Record<
+  SortingType,
+  {
+    text: string;
+    value: SortingType;
+  }
+>;
