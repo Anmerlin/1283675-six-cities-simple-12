@@ -1,5 +1,5 @@
 import { plural } from 'const';
-import { getSelectedCity, getOffersDataLoading, getFilterOffers } from 'store/selectors';
+import { getSelectedCity, getDataLoading, getFilterOffers } from 'store/offer/selectors';
 import { useAppSelector } from 'hooks';
 import { Loader, SortingForm, Offers, Map } from 'components';
 
@@ -15,7 +15,7 @@ function getTextByCount(count: number, city: string): string {
 
 function MainContent(): JSX.Element {
   const selectedCity = useAppSelector(getSelectedCity);
-  const isLoading = useAppSelector(getOffersDataLoading);
+  const isLoading = useAppSelector(getDataLoading);
   const offers = useAppSelector(getFilterOffers);
 
   const placesFoundText = getTextByCount(offers.length, selectedCity);
@@ -25,11 +25,8 @@ function MainContent(): JSX.Element {
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{placesFoundText}</b>
-
         <SortingForm />
-
         {isLoading ? <Loader /> : <Offers offers={offers} />}
-
       </section>
       <div className="cities__right-section">
         <Map

@@ -2,8 +2,8 @@ import { CityName } from 'types/city';
 import { SortingOption, SortingType } from 'types/sorting';
 
 export enum AppRoute {
-  Login = '/login',
   Main = '/',
+  Login = '/login',
   Offer = '/offer',
   OfferById = '/offer/:id',
   NotFound = '*',
@@ -124,4 +124,5 @@ export enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  Comments = '/comments',
 }

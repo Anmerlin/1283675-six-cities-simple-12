@@ -1,6 +1,8 @@
 export { default as App } from './app/app';
 export { default as Layout } from './layout/layout';
 export { default as Header } from './header/header';
+export { default as HeaderAuth } from './header-auth/header-auth';
+export { default as HeaderUnknown } from './header-unknown/header-unknown';
 export { default as Logo } from './logo/logo';
 export { default as Main } from './main/main';
 export { default as EmptyList } from './empty-list/empty-list';

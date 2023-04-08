@@ -1,17 +1,29 @@
+import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { useAppSelector } from 'hooks';
+import { useAppSelector, useAppDispatch } from 'hooks';
 import { HousingTypes } from 'types/housing';
-import { getFilterOffers } from 'store/selectors';
-import { AppRoute, housingType } from 'const';
+import { getTargetOffer, getNearbyOffers, getReviews } from 'store/offer/selectors';
+import { getAuthorizationStatus } from 'store/user/selectors';
+import { AppRoute, AuthorizationStatus, housingType } from 'const';
+import { fetchTargetOfferAction } from 'store/offer/api-actions';
 import { Offers, Rating, Reviews, Form, Map } from 'components';
-import { reviews } from 'mocks/reviews';
 
 function OfferScreen(): JSX.Element {
-  const offers = useAppSelector(getFilterOffers);
   const { id: offerId } = useParams();
-  const currentOffer = offers.find((offer) => offer.id.toString() === offerId);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const targetOffer = useAppSelector(getTargetOffer);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const reviews = useAppSelector(getReviews);
 
-  if (!currentOffer) {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (offerId) {
+      dispatch(fetchTargetOfferAction(Number(offerId)));
+    }
+  }, [dispatch, offerId]); //?? спросить
+
+  if (!targetOffer || !nearbyOffers || !reviews) {
     return <Navigate to={AppRoute.NotFound} />;
   }
 
@@ -27,9 +39,8 @@ function OfferScreen(): JSX.Element {
     goods,
     description,
     host,
-  } = currentOffer;
+  } = targetOffer;
 
-  const nearbyOffers = offers.filter((offer) => offer.id !== currentOffer.id);
   const currentType = housingType[type as HousingTypes];
 
   return (
@@ -38,7 +49,7 @@ function OfferScreen(): JSX.Element {
         <div className="property__gallery-container container">
           <div className="property__gallery">
             {
-              images.map((image, index) => (
+              images.slice(0, 6).map((image) => (
                 <div className="property__image-wrapper" key={image}>
                   <img className="property__image" src={image} alt="Photo studio" />
                 </div>
@@ -59,8 +70,8 @@ function OfferScreen(): JSX.Element {
 
             <ul className="property__features">
               <li className="property__feature property__feature--entire">{currentType}</li>
-              <li className="property__feature property__feature--bedrooms">{bedrooms} Bedrooms</li>
-              <li className="property__feature property__feature--adults">Max {maxAdults} adults</li>
+              <li className="property__feature property__feature--bedrooms">{bedrooms} {bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}</li>
+              <li className="property__feature property__feature--adults">Max {maxAdults} {maxAdults === 1 ? 'adult' : 'adults'}</li>
             </ul>
             <div className="property__price">
               <b className="property__price-value">&euro;{price}</b>
@@ -92,14 +103,16 @@ function OfferScreen(): JSX.Element {
             <section className="property__reviews reviews">
               <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
               <Reviews reviews={reviews} />
-              <Form />
+
+              {authorizationStatus === AuthorizationStatus.Auth ? <Form targetId={targetOffer.id} /> : null}
             </section>
           </div>
         </div>
 
         <Map
-          city={currentOffer.city}
-          offers={offers}
+          city={targetOffer.city}
+          offers={[...nearbyOffers, targetOffer]}
+          targetOffer={targetOffer}
           className={'property__map'}
         />
 

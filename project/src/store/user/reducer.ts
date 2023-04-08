@@ -1,33 +1,27 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setAuthorizationStatus, setUserData } from './action';
+import { setUserData, setLogout } from './action';
 import { UserData } from 'types/user-data';
 import { AuthorizationStatus } from 'const';
 
 type InitialState = {
   authorizationStatus: AuthorizationStatus;
-  error: string | null;
-  userData: UserData;
+  userData: UserData | null;
 };
 
 const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  error: null,
-  userData: {
-    id: 1,
-    avatarUrl: '',
-    isPro: false,
-    email: '',
-    name: '',
-    token: ''
-  },
+  userData: null,
 };
 
 export const userReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(setAuthorizationStatus, (state, action) => {
-      state.authorizationStatus = action.payload;
-    })
     .addCase(setUserData, (state, action) => {
       state.userData = action.payload;
+      state.authorizationStatus = AuthorizationStatus.Auth;
+    })
+    .addCase(setLogout, (state, action) => {
+      //  если не передаю action то устанавливается только state, при этом визуально logout не происходит, видно только после обновления
+      state.authorizationStatus = action.payload;
+      // state.authorizationStatus = AuthorizationStatus.NoAuth;
     });
 });
