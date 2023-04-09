@@ -1,4 +1,4 @@
-import { getSelectedCity } from 'store/selectors';
+import { getSelectedCity } from 'store/offer/selectors';
 import { useAppSelector } from 'hooks';
 
 function EmptyList(): JSX.Element {

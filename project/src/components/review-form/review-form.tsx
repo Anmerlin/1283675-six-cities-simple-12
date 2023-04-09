@@ -1,5 +1,8 @@
-import { ChangeEvent, Fragment, useState } from 'react';
+import { FormEvent, ChangeEvent, Fragment, useState } from 'react';
+import { useAppDispatch } from 'hooks';
+import { sendReviewAction } from 'store/offer/api-actions';
 import { RatingScores } from 'const';
+import { OfferCard } from 'types/offer';
 
 const MIN_LENGTH_INPUT = 50;
 const MAX_LENGTH_INPUT = 300;
@@ -9,7 +12,11 @@ type Form = {
   review: string;
 }
 
-function ReviewForm(): JSX.Element {
+type ReviewFormProps = {
+  targetId: OfferCard['id'];
+};
+
+function ReviewForm({ targetId }: ReviewFormProps): JSX.Element {
   const [formData, setFormData] = useState<Form>({
     rating: 0,
     review: ''
@@ -27,8 +34,18 @@ function ReviewForm(): JSX.Element {
     return isTextValid && isRated;
   };
 
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const payload = { ...formData, targetId };
+    dispatch(sendReviewAction(payload));
+    setFormData({ review: '', rating: 0 });
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
 
@@ -40,6 +57,7 @@ function ReviewForm(): JSX.Element {
               value={score.value}
               id={`${score.value}-stars`}
               type="radio"
+              checked={formData.rating.toString() === score.value.toString()}
               onChange={handleFieldChange}
             />
             <label htmlFor={`${score.value}-stars`} className="reviews__rating-label form__rating-label" title={score.title}>
@@ -60,6 +78,7 @@ function ReviewForm(): JSX.Element {
         minLength={MIN_LENGTH_INPUT}
         maxLength={MAX_LENGTH_INPUT}
         onChange={handleFieldChange}
+        value={formData.review}
       />
 
       <div className="reviews__button-wrapper">

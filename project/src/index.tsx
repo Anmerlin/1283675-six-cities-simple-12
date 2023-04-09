@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-//import { ToastContainer } from 'react-toastify'; // к следующему таску
+import { ToastContainer } from 'react-toastify';
 import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
 import { store } from 'store';
@@ -14,6 +14,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ToastContainer />
       <HelmetProvider>
         <App />
       </HelmetProvider>

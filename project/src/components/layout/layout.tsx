@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { store } from 'store';
 import { fetchOffersAction } from 'store/offer/api-actions';
-import { getInitialOffers, getOffersDataLoading } from 'store/selectors';
+import { getInitialOffers, getDataLoading } from 'store/offer/selectors';
 import { AppRoute, PagesOption } from 'const';
-import { useAppSelector } from 'hooks';
+import { useAppSelector, useAppDispatch } from 'hooks';
 import { Header } from 'components';
 import { LoadingScreen } from 'pages';
 
@@ -31,13 +30,13 @@ function Layout() {
   const { pathname } = useLocation();
   const { id: offerId } = useParams();
 
-  const isLoading = useAppSelector(getOffersDataLoading);
+  const isLoading = useAppSelector(getDataLoading);
   const offers = useAppSelector(getInitialOffers);
+  const dispatch = useAppDispatch();
 
-  // хоть мы и проговаривали, но так до конца и не понял как без хука вызвать и как здесь использовать useAppDispatch. нужно еще раз разобрать
   useEffect(() => {
-    store.dispatch(fetchOffersAction());
-  }, []);
+    dispatch(fetchOffersAction());
+  }, [dispatch]); // просит dispatch в массив зависимостей
 
 
   const { title, postfixCls } = getPagesOption(pathname, offerId, Boolean(offers.length));

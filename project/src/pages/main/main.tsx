@@ -1,4 +1,4 @@
-import { getInitialOffers } from 'store/selectors';
+import { getInitialOffers } from 'store/offer/selectors';
 import { useAppSelector } from 'hooks';
 import { CityList, Main, EmptyList, } from 'components';
 

@@ -1,4 +1,5 @@
-import { Person as Guest} from './person';
+import { Person as Guest } from './person';
+import { RatingScores } from 'const';
 
 export type ReviewOfferCard = {
   id: number;
@@ -6,6 +7,11 @@ export type ReviewOfferCard = {
   rating: number;
   comment: string;
   date: string;
+};
+
+export type ReviewData = {
+  review: string;
+  rating: typeof RatingScores[number]['value'] | 0;
 };
 
 export type ReviewOfferCards = ReviewOfferCard[];

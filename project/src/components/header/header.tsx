@@ -1,24 +1,20 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { checkAuthAction, logoutAction } from 'store/user/api-actions';
-import { getUserData, getAuthorizationStatus } from 'store/selectors';
-import { store } from 'store';
+import { checkAuthAction } from 'store/user/api-actions';
+import { getUserData, getAuthorizationStatus } from 'store/user/selectors';
 import { useAppSelector, useAppDispatch } from 'hooks';
-import { Logo } from 'components';
-import { AppRoute, AuthorizationStatus } from 'const';
+import { HeaderAuth, HeaderUnknown, Logo } from 'components';
+import { AuthorizationStatus } from 'const';
 
 function Header(): JSX.Element {
-  const { avatarUrl, email } = useAppSelector(getUserData);
+  const currentUser = useAppSelector(getUserData);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  // по аналогии с offers
   useEffect(() => {
     if (authorizationStatus === AuthorizationStatus.Unknown) {
-      store.dispatch(checkAuthAction());
+      dispatch(checkAuthAction());
     }
-  }, [authorizationStatus]);
+  }, [authorizationStatus, dispatch]); // требует включить dispathc в зависимости
 
   return (
     <header className="header">
@@ -28,44 +24,9 @@ function Header(): JSX.Element {
             <Logo />
           </div>
           <nav className="header__nav">
-            {authorizationStatus === AuthorizationStatus.Auth ? (
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <div className="header__nav-profile">
-                    <div className="header__avatar-wrapper user__avatar-wrapper" style={{ backgroundImage: `url(${avatarUrl})` }}></div>
-                    <span className="header__user-name user__name">{email}</span>
-                  </div>
-                </li>
-                <li className="header__nav-item">
-                  <a
-                    className="header__nav-link"
-                    href="/#"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      dispatch(logoutAction());
-                    }}
-                  >
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            ) : (
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a
-                    className="header__nav-link header__nav-link--profile"
-                    href="/#"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      navigate(AppRoute.Login);
-                    }}
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__login">Sign in</span>
-                  </a>
-                </li>
-              </ul>
-            )}
+            {authorizationStatus === AuthorizationStatus.Auth ?
+              <HeaderAuth avatar={currentUser?.avatarUrl || ''} email={currentUser?.email} /> :
+              <HeaderUnknown />}
           </nav>
         </div>
       </div>

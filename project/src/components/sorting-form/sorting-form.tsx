@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { selectSorting } from 'store/offer/action';
-import { getSelectedSorting } from 'store/selectors';
+import { getSelectedSorting } from 'store/offer/selectors';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { SortingType } from 'types/sorting';
 import { sortingOptions } from 'const';
+
+const sortingTypes = Object.values(sortingOptions);
 
 function SortingForm(): JSX.Element {
   const [isSortListOpened, setIsSortListOpened] = useState(false);
@@ -31,7 +33,7 @@ function SortingForm(): JSX.Element {
       </span>
       <ul className={`places__options places__options--custom ${isSortListOpened ? 'places__options--opened' : ''}`}>
         {
-          Object.values(sortingOptions).map((option) => (
+          sortingTypes.map((option) => (
             <li
               className={`places__option ${option.value === selectedSorting ? ' places__option--active' : ''}`}
               tabIndex={0}

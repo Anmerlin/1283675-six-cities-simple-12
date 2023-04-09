@@ -1,6 +1,6 @@
 import { useAppSelector, useAppDispatch } from 'hooks';
 import { changeCity } from 'store/offer/action';
-import { getSelectedCity } from 'store/selectors';
+import { getSelectedCity } from 'store/offer/selectors';
 import { CityName } from 'types/city';
 import { cityNames } from 'const';
 
