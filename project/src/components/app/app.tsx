@@ -1,22 +1,19 @@
 import { Routes, Route } from 'react-router-dom';
-import { AppRoute } from 'const';
+import { HelmetProvider } from 'react-helmet-async';
 import { MainScreen, LoginScreen, OfferScreen } from 'pages';
-import { HistoryRouter, Layout, PageNotFound, ScrollTop } from 'components';
-import browserHistory from 'browser-history';
+import { AppRoute } from 'const';
+import { Layout, PageNotFound, ScrollTop } from 'components';
 
 function App(): JSX.Element {
   return (
-    <HistoryRouter history={browserHistory}>
+    <HelmetProvider>
       <ScrollTop />
       <Routes>
+        <Route path={AppRoute.Login} element={<LoginScreen />} />
         <Route path={AppRoute.Main} element={<Layout />}>
           <Route
             index
             element={<MainScreen />}
-          />
-          <Route
-            path={AppRoute.Login}
-            element={<LoginScreen />}
           />
           <Route
             path={AppRoute.OfferById}
@@ -28,7 +25,7 @@ function App(): JSX.Element {
           />
         </Route>
       </Routes>
-    </HistoryRouter>
+    </HelmetProvider>
   );
 }
 

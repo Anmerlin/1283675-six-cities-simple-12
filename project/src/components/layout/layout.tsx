@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { fetchOffersAction } from 'store/offer/api-actions';
-import { getInitialOffers, getDataLoading } from 'store/offer/selectors';
+import { fetchOffersAction } from 'store/offers-data/api-actions';
+import { getOffers } from 'store/offers-data/selectors';
 import { AppRoute, PagesOption } from 'const';
 import { useAppSelector, useAppDispatch } from 'hooks';
 import { Header } from 'components';
-import { LoadingScreen } from 'pages';
 
 const getPagesOption = (location: string, id: string | undefined, isNotEmptyOffers: boolean) => {
   const appRouteOffer = id ? AppRoute.OfferById.replace(/:id/, id) : AppRoute.Offer;
@@ -17,8 +16,6 @@ const getPagesOption = (location: string, id: string | undefined, isNotEmptyOffe
         return PagesOption.Empty;
       }
       return PagesOption.Main;
-    case AppRoute.Login:
-      return PagesOption.Login;
     case appRouteOffer:
       return PagesOption.Offer;
     default:
@@ -30,20 +27,15 @@ function Layout() {
   const { pathname } = useLocation();
   const { id: offerId } = useParams();
 
-  const isLoading = useAppSelector(getDataLoading);
-  const offers = useAppSelector(getInitialOffers);
+  const offers = useAppSelector(getOffers);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchOffersAction());
-  }, [dispatch]); // просит dispatch в массив зависимостей
+  }, [dispatch]);
 
 
   const { title, postfixCls } = getPagesOption(pathname, offerId, Boolean(offers.length));
-
-  if (isLoading && !offers.length) {
-    return <LoadingScreen />;
-  }
 
   return (
     <>
@@ -51,7 +43,7 @@ function Layout() {
         <title>{title}</title>
       </Helmet>
       <Header />
-      <main className={`page__main page__main--${postfixCls}`}>
+      <main className={`page__main ${!offers.length ? 'page__main--index' : ''} page__main--${postfixCls}`}>
         <Outlet />
       </main>
     </>

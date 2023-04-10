@@ -1,17 +1,15 @@
-import { useState, useRef, useEffect } from 'react';
+import { memo, useState, useRef, useEffect } from 'react';
 import { Icon, Marker, LayerGroup, PointTuple } from 'leaflet';
-import { getSelectedOffer } from 'store/offer/selectors';
 import { City, CityName } from 'types/city';
-import { OfferCard, OfferCards } from 'types/offer';
+import { OfferItem, OfferList } from 'types/offer';
 import { MarkerIcon } from 'const';
-import { useAppSelector } from 'hooks';
 import useMap from 'hooks/use-map';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   city: City;
-  offers: OfferCards;
-  targetOffer?: OfferCard | null;
+  offers: OfferList;
+  selectedOffer: OfferItem | null;
   className?: string;
 };
 
@@ -31,14 +29,7 @@ const currentCustomIcon = new Icon({
 });
 
 function Map(props: MapProps): JSX.Element {
-  const { city, offers, targetOffer, className } = props;
-
-  let selectedOffer = useAppSelector(getSelectedOffer);
-
-  if (targetOffer) {
-    selectedOffer = targetOffer.id;
-  }
-
+  const { city, offers, selectedOffer, className } = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   const [currentCity, setCurrentCity] = useState<CityName>(city.name);
@@ -69,7 +60,7 @@ function Map(props: MapProps): JSX.Element {
               lng: offer.location.longitude,
             },
             {
-              icon: offer.id === selectedOffer ? currentCustomIcon : defaultCustomIcon,
+              icon: offer.id === selectedOffer?.id ? currentCustomIcon : defaultCustomIcon,
             }
           )
       );
@@ -86,4 +77,4 @@ function Map(props: MapProps): JSX.Element {
   return <section className={`${className ? className : ''} map`} ref={mapRef} />;
 }
 
-export default Map;
+export default memo(Map);

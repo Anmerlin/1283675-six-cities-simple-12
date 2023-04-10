@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
-import { checkAuthAction } from 'store/user/api-actions';
-import { getUserData, getAuthorizationStatus } from 'store/user/selectors';
+import { checkAuthAction } from 'store/user-process/api-actions';
+import { getAuthorizationStatus } from 'store/user-process/selectors';
 import { useAppSelector, useAppDispatch } from 'hooks';
-import { HeaderAuth, HeaderUnknown, Logo } from 'components';
 import { AuthorizationStatus } from 'const';
+import { UserAuth, UserUnknown, Logo } from 'components';
 
 function Header(): JSX.Element {
-  const currentUser = useAppSelector(getUserData);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
 
@@ -14,7 +13,7 @@ function Header(): JSX.Element {
     if (authorizationStatus === AuthorizationStatus.Unknown) {
       dispatch(checkAuthAction());
     }
-  }, [authorizationStatus, dispatch]); // требует включить dispathc в зависимости
+  }, [authorizationStatus, dispatch]);
 
   return (
     <header className="header">
@@ -24,9 +23,7 @@ function Header(): JSX.Element {
             <Logo />
           </div>
           <nav className="header__nav">
-            {authorizationStatus === AuthorizationStatus.Auth ?
-              <HeaderAuth avatar={currentUser?.avatarUrl || ''} email={currentUser?.email} /> :
-              <HeaderUnknown />}
+            {authorizationStatus === AuthorizationStatus.Auth ? <UserAuth /> : <UserUnknown />}
           </nav>
         </div>
       </div>

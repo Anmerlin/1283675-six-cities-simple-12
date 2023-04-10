@@ -1,5 +1,5 @@
 import { CityName } from 'types/city';
-import { SortingOption, SortingType } from 'types/sorting';
+import { SortingData, SortingOption } from 'types/sorting';
 
 export enum AppRoute {
   Main = '/',
@@ -70,7 +70,7 @@ export const sortingOptions: SortingOption = {
   },
 };
 
-export const DEFAULT_SORTING: SortingType = 'A';
+export const DEFAULT_SORTING: SortingData = sortingOptions['A'];
 
 export const DEFAULT_SELECT_CARD = -1;
 
@@ -83,27 +83,22 @@ export const housingType = {
 
 export const RatingScores = [
   {
-    id: 5,
     value: 5,
     title: 'perfect'
   },
   {
-    id: 4,
     value: 4,
     title: 'good'
   },
   {
-    id: 3,
     value: 3,
     title: 'not bad'
   },
   {
-    id: 2,
     value: 2,
     title: 'badly'
   },
   {
-    id: 1,
     value: 1,
     title: 'terribly'
   },
@@ -125,4 +120,10 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments',
+}
+
+export enum NameSpace {
+  Data = 'DATA',
+  Offer = 'OFFER',
+  User = 'USER'
 }

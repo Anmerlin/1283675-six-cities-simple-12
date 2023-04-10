@@ -1,9 +1,8 @@
-export type SortingType = 'A' | 'B' | 'C' | 'D';
+type SortingIds = 'A' | 'B' | 'C' | 'D';
 
-export type SortingOption = Record<
-  SortingType,
-  {
-    text: string;
-    value: SortingType;
-  }
->;
+export type SortingData = {
+  text: string;
+  value: SortingIds;
+};
+
+export type SortingOption = Record<SortingIds, SortingData>;

@@ -1,8 +1,8 @@
-import { ReviewOfferCard } from 'types/review';
+import { ReviewItem } from 'types/review';
 import { Rating } from 'components';
 
 type ReviewProps = {
-  review: ReviewOfferCard;
+  review: ReviewItem;
 };
 
 function getDate(dateValue: string): string[] {

@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { selectSorting } from 'store/offer/action';
-import { getSelectedSorting } from 'store/offer/selectors';
+import { memo, useState } from 'react';
+import { selectSorting } from 'store/offers-process/offers-process';
+import { getSelectedSorting } from 'store/offers-process/selectors';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { SortingType } from 'types/sorting';
+import { SortingData } from 'types/sorting';
 import { sortingOptions } from 'const';
 
 const sortingTypes = Object.values(sortingOptions);
@@ -13,7 +13,7 @@ function SortingForm(): JSX.Element {
   const selectedSorting = useAppSelector(getSelectedSorting);
   const dispatch = useAppDispatch();
 
-  const handleSortingChange = (option: SortingType) => {
+  const handleSortingChange = (option: SortingData) => {
     dispatch(selectSorting({ targetSorting: option }));
     setIsSortListOpened(!isSortListOpened);
   };
@@ -26,7 +26,7 @@ function SortingForm(): JSX.Element {
         tabIndex={0}
         onClick={() => setIsSortListOpened(!isSortListOpened)}
       >
-        {selectedSorting}
+        {selectedSorting.text}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select" />
         </svg>
@@ -35,10 +35,10 @@ function SortingForm(): JSX.Element {
         {
           sortingTypes.map((option) => (
             <li
-              className={`places__option ${option.value === selectedSorting ? ' places__option--active' : ''}`}
+              className={`places__option ${option.value === selectedSorting.value ? ' places__option--active' : ''}`}
               tabIndex={0}
               key={option.value}
-              onClick={() => handleSortingChange(option.value)}
+              onClick={() => handleSortingChange(option)}
             >
               {option.text}
             </li>
@@ -49,4 +49,4 @@ function SortingForm(): JSX.Element {
   );
 }
 
-export default SortingForm;
+export default memo(SortingForm);

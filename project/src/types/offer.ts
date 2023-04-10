@@ -2,7 +2,7 @@ import { Person } from './person';
 import { City } from './city';
 import { Location } from './location';
 
-export type OfferCard = {
+export type OfferItem = {
   id: number;
   isPremium: boolean;
   previewImage: string;
@@ -20,4 +20,4 @@ export type OfferCard = {
   host: Person;
 };
 
-export type OfferCards = OfferCard[];
+export type OfferList = OfferItem[];
