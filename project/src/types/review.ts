@@ -1,7 +1,7 @@
 import { Person as Guest } from './person';
 import { RatingScores } from 'const';
 
-export type ReviewOfferCard = {
+export type ReviewItem = {
   id: number;
   user: Guest;
   rating: number;
@@ -14,4 +14,4 @@ export type ReviewData = {
   rating: typeof RatingScores[number]['value'] | 0;
 };
 
-export type ReviewOfferCards = ReviewOfferCard[];
+export type ReviewList = ReviewItem[];

@@ -1,8 +1,7 @@
-import { AppRoute } from 'const';
 import { useNavigate } from 'react-router-dom';
+import { AppRoute } from 'const';
 
-
-function HeaderUnknown(): JSX.Element {
+function UserUnknown(): JSX.Element {
   const navigate = useNavigate();
 
   return (
@@ -24,4 +23,4 @@ function HeaderUnknown(): JSX.Element {
   );
 }
 
-export default HeaderUnknown;
+export default UserUnknown;

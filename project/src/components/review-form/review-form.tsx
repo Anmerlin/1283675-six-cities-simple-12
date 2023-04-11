@@ -1,9 +1,11 @@
 import { FormEvent, ChangeEvent, Fragment, useState } from 'react';
-import { useAppDispatch } from 'hooks';
-import { sendReviewAction } from 'store/offer/api-actions';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { sendReviewAction } from 'store/offers-data/api-actions';
+import { OfferItem } from 'types/offer';
 import { RatingScores } from 'const';
-import { OfferCard } from 'types/offer';
+import { getReviewSendStatus, getSendErrorStatus } from 'store/offers-data/selectors';
 
+const DEFAULT_RATING = 0;
 const MIN_LENGTH_INPUT = 50;
 const MAX_LENGTH_INPUT = 300;
 
@@ -13,12 +15,19 @@ type Form = {
 }
 
 type ReviewFormProps = {
-  targetId: OfferCard['id'];
+  targetId: OfferItem['id'];
 };
 
 function ReviewForm({ targetId }: ReviewFormProps): JSX.Element {
+  const isReviewSend = useAppSelector(getReviewSendStatus);
+  const isError = useAppSelector(getSendErrorStatus);
+
+  const errorText = isError ? (
+    <div style={{ color: 'red' }}>Sending feedback failed. Please resend send again</div>
+  ) : '';
+
   const [formData, setFormData] = useState<Form>({
-    rating: 0,
+    rating: DEFAULT_RATING,
     review: ''
   });
 
@@ -29,7 +38,7 @@ function ReviewForm({ targetId }: ReviewFormProps): JSX.Element {
 
   const isFormValid = () => {
     const isTextValid = formData.review.length > MIN_LENGTH_INPUT && formData.review.length < MAX_LENGTH_INPUT;
-    const isRated = Number(formData.rating) > 0;
+    const isRated = Number(formData.rating) > DEFAULT_RATING;
 
     return isTextValid && isRated;
   };
@@ -39,18 +48,21 @@ function ReviewForm({ targetId }: ReviewFormProps): JSX.Element {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const payload = { ...formData, targetId };
-    dispatch(sendReviewAction(payload));
-    setFormData({ review: '', rating: 0 });
+    dispatch(sendReviewAction({ ...formData, targetId }));
+
+    if (!isError) {
+      setFormData({ review: '', rating: DEFAULT_RATING });
+    }
   };
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
+      {errorText}
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
 
         {RatingScores.map((score) => (
-          <Fragment key={score.id}>
+          <Fragment key={score.value}>
             <input
               className="form__rating-input visually-hidden"
               name="rating"
@@ -59,6 +71,7 @@ function ReviewForm({ targetId }: ReviewFormProps): JSX.Element {
               type="radio"
               checked={formData.rating.toString() === score.value.toString()}
               onChange={handleFieldChange}
+              disabled={isReviewSend}
             />
             <label htmlFor={`${score.value}-stars`} className="reviews__rating-label form__rating-label" title={score.title}>
               <svg className="form__star-image" width="37" height="33">
@@ -79,6 +92,7 @@ function ReviewForm({ targetId }: ReviewFormProps): JSX.Element {
         maxLength={MAX_LENGTH_INPUT}
         onChange={handleFieldChange}
         value={formData.review}
+        disabled={isReviewSend}
       />
 
       <div className="reviews__button-wrapper">

@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import { useAppSelector, useAppDispatch } from 'hooks';
-import { changeCity } from 'store/offer/action';
-import { getSelectedCity } from 'store/offer/selectors';
+import { changeCity } from 'store/offers-process/offers-process';
+import { getSelectedCity } from 'store/offers-process/selectors';
 import { CityName } from 'types/city';
 import { cityNames } from 'const';
 
@@ -38,4 +39,4 @@ function CityList(): JSX.Element {
   );
 }
 
-export default CityList;
+export default memo(CityList);

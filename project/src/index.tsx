@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { ToastContainer } from 'react-toastify';
 import { Provider } from 'react-redux';
-import { HelmetProvider } from 'react-helmet-async';
+import { ToastContainer } from 'react-toastify';
 import { store } from 'store';
-import { App } from 'components';
+import browserHistory from './browser-history';
+import { App, HistoryRouter } from 'components';
 import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(
@@ -14,10 +14,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ToastContainer />
-      <HelmetProvider>
+      <HistoryRouter history={browserHistory}>
+        <ToastContainer />
         <App />
-      </HelmetProvider>
+      </HistoryRouter>
     </Provider>
   </React.StrictMode>,
 );

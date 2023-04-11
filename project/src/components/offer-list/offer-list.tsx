@@ -1,16 +1,17 @@
-import { OfferCards } from 'types/offer';
-import { Offer } from 'components';
+import { OfferItem, OfferList } from 'types/offer';
+import { OfferCard } from 'components';
 
 type OfferListProps = {
-  offers: OfferCards;
+  offers: OfferList;
+  handleCardHover?: (offer: OfferItem | null) => void;
 }
 
-function OffersList({ offers }: OfferListProps): JSX.Element {
+function Offers({ offers, handleCardHover }: OfferListProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers.map((offer) => <Offer key={offer.id} offer={offer} />)}
+      {offers.map((offer) => <OfferCard key={offer.id} offer={offer} handleCardHover={handleCardHover} />)}
     </div>
   );
 }
 
-export default OffersList;
+export default Offers;
