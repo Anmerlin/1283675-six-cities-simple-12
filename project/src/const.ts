@@ -52,27 +52,25 @@ export const cityNames = [
 export const DEFAULT_CITY: CityName = 'Paris';
 
 export const sortingOptions: SortingOption = {
-  A: {
+  popular: {
     text: 'Popular',
-    value: 'A',
+    value: 'popular',
   },
-  B: {
+  priceToHigh: {
     text: 'Price: low to high',
-    value: 'B',
+    value: 'priceToHigh',
   },
-  C: {
+  priceToLow: {
     text: 'Price: high to low',
-    value: 'C',
+    value: 'priceToLow',
   },
-  D: {
+  rated: {
     text: 'Top rated first',
-    value: 'D',
+    value: 'rated',
   },
 };
 
-export const DEFAULT_SORTING: SortingData = sortingOptions['A'];
-
-export const DEFAULT_SELECT_CARD = -1;
+export const DEFAULT_SORTING: SortingData = sortingOptions['popular'];
 
 export const housingType = {
   apartment: 'Apartment',

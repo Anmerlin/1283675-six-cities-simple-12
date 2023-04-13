@@ -1,8 +1,8 @@
 export { default as App } from './app/app';
 export { default as Layout } from './layout/layout';
 export { default as Header } from './header/header';
-export { default as UserAuth } from './user-auth/user-auth';
-export { default as UserUnknown } from './user-unknown/user-unknown';
+export { default as UserAuthorized } from './user-authorized/user-authorized';
+export { default as UserUnauthorized } from './user-unauthorized/user-unauthorized';
 export { default as Logo } from './logo/logo';
 export { default as Main } from './main/main';
 export { default as EmptyList } from './empty-list/empty-list';

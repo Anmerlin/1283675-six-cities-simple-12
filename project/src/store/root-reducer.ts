@@ -1,11 +1,11 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { NameSpace } from 'const';
 import { offersData } from './offers-data/offers-data';
-import { offersProcess } from './offers-process/offers-process';
-import { userProcess } from './user-process/user-process';
+import { offersList } from './offers-list/offers-list';
+import { user } from './user/user';
 
 export const rootReducer = combineReducers({
-  [NameSpace.User]: userProcess.reducer,
+  [NameSpace.User]: user.reducer,
   [NameSpace.Data]: offersData.reducer,
-  [NameSpace.Offer]: offersProcess.reducer,
+  [NameSpace.Offer]: offersList.reducer,
 });

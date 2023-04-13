@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useAppSelector, useAppDispatch } from 'hooks';
-import { changeCity } from 'store/offers-process/offers-process';
-import { getSelectedCity } from 'store/offers-process/selectors';
+import { changeCity } from 'store/offers-list/offers-list';
+import { getSelectedCity } from 'store/offers-list/selectors';
 import { CityName } from 'types/city';
 import { cityNames } from 'const';
 

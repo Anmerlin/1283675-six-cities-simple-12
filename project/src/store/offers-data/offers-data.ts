@@ -1,18 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchOffersAction, fetchTargetOfferAction, sendReviewAction } from './api-actions';
 import { OffersData } from 'types/state';
-import { NameSpace, DEFAULT_SELECT_CARD } from 'const';
+import { NameSpace } from 'const';
 
 const initialState: OffersData = {
-  offers: [],
-  offer: DEFAULT_SELECT_CARD,
-  targetOffer: null,
-  nearbyOffers: [],
-  isDataLoading: false,
-  isError: true,
-  reviews: [],
-  isReviewSend: false,
-  isSendError: false,
+  offers: {
+    data: [],
+    isDataLoading: false,
+  },
+  offer: {
+    targetOffer: null,
+    nearbyOffers: [],
+    reviews: [],
+    isInitial: false,
+    isDataLoading: false,
+    isError: false,
+  },
+  review: {
+    isSending: false,
+    isSendingError: false,
+  },
 };
 
 export const offersData = createSlice({
@@ -22,51 +29,52 @@ export const offersData = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
-        state.isDataLoading = true;
+        state.offers.isDataLoading = true;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
-        state.isDataLoading = false;
-        state.offers = action.payload;
+        state.offers.data = action.payload;
+        state.offers.isDataLoading = false;
       })
       .addCase(fetchOffersAction.rejected, (state) => {
-        state.isDataLoading = false;
+        state.offers.isDataLoading = false;
       })
       .addCase(fetchTargetOfferAction.pending, (state) => {
-        state.isError = false;
-        state.isDataLoading = true;
+        if (!state.offer.isInitial) {
+          state.offer.isInitial = true;
+        }
+        state.offer.isDataLoading = true;
       })
       .addCase(fetchTargetOfferAction.fulfilled, (state, action) => {
         const [targetOffer, nearbyOffers, comments] = action.payload;
-        state.targetOffer = targetOffer;
-        state.nearbyOffers = nearbyOffers;
-        state.reviews = [...comments].sort((a, b) => {
+        state.offer.targetOffer = targetOffer;
+        state.offer.nearbyOffers = nearbyOffers;
+        state.offer.reviews = comments.sort((a, b) => {
           if (a.date < b.date) {
             return 1;
           }
           return -1;
         }).slice(0, 10);
-        state.isDataLoading = false;
+        state.offer.isDataLoading = false;
       })
       .addCase(fetchTargetOfferAction.rejected, (state) => {
-        state.isError = true;
-        state.isDataLoading = false;
+        state.offer.isError = true;
+        state.offer.isDataLoading = false;
       })
       .addCase(sendReviewAction.pending, (state) => {
-        state.isSendError = false;
-        state.isReviewSend = true;
+        state.review.isSending = true;
       })
       .addCase(sendReviewAction.fulfilled, (state, action) => {
-        state.reviews = [...action.payload].sort((a, b) => {
+        state.offer.reviews = action.payload.sort((a, b) => {
           if (a.date < b.date) {
             return 1;
           }
           return -1;
         }).slice(0, 10);
-        state.isReviewSend = false;
+        state.review.isSending = false;
       })
       .addCase(sendReviewAction.rejected, (state) => {
-        state.isSendError = true;
-        state.isReviewSend = false;
+        state.review.isSendingError = true;
+        state.review.isSending = false;
       });
   }
 });

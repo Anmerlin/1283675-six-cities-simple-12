@@ -1,6 +1,6 @@
-import { useState, useCallback, useMemo } from 'react';
-import { getSelectedCity, getSelectedSorting } from 'store/offers-process/selectors';
-import { getDataLoadingStatus, getOffers } from 'store/offers-data/selectors';
+import { useState, useRef, useMemo, useEffect } from 'react';
+import { getSelectedCity, getSelectedSorting } from 'store/offers-list/selectors';
+import { getOffers, getDataOffersLoadingStatus } from 'store/offers-data/selectors';
 import { useAppSelector } from 'hooks';
 import { Loader, SortingForm, Offers, Map } from 'components';
 import { OfferItem } from 'types/offer';
@@ -17,10 +17,11 @@ function getTextByCount(count: number, city: string): string {
 }
 
 function MainContent(): JSX.Element {
+  const offerListWrapper = useRef<HTMLElement>(null);
   const [activeCard, setActiveCard] = useState<OfferItem | null>(null);
   const selectedCity = useAppSelector(getSelectedCity);
   const selectedSorting = useAppSelector(getSelectedSorting);
-  const isLoading = useAppSelector(getDataLoadingStatus);
+  const isLoading = useAppSelector(getDataOffersLoadingStatus);
   const offers = useAppSelector(getOffers);
 
   const filteredOffers = useMemo(
@@ -35,11 +36,11 @@ function MainContent(): JSX.Element {
 
     return [...filteredOffers].sort((a, b) => {
       switch (selectedSorting.value) {
-        case 'B':
+        case 'priceToHigh':
           return a.price - b.price;
-        case 'C':
+        case 'priceToLow':
           return b.price - a.price;
-        case 'D':
+        case 'rated':
           return b.rating - a.rating;
         default:
           return 0;
@@ -47,19 +48,20 @@ function MainContent(): JSX.Element {
     });
   }, [filteredOffers, selectedSorting]);
 
-  const placesFoundText = getTextByCount(filteredOffers.length, selectedCity);
+  useEffect(() => {
+    const wrapper = offerListWrapper.current as HTMLElement;
+    wrapper.scrollTo(0, 0);
+  }, [selectedCity]);
 
-  const handleCardHover = useCallback((offer: OfferItem | null) => {
-    setActiveCard(offer);
-  }, []);
+  const placesFoundText = getTextByCount(filteredOffers.length, selectedCity);
 
   return (
     <div className="cities__places-container container">
-      <section className="cities__places places">
+      <section className="cities__places places" ref={offerListWrapper}>
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{placesFoundText}</b>
         <SortingForm />
-        {isLoading ? <Loader /> : <Offers offers={sortedOffers} handleCardHover={handleCardHover} />}
+        {isLoading ? <Loader /> : <Offers offers={sortedOffers} onHoverCard={setActiveCard} />}
       </section>
       <div className="cities__right-section">
         <Map

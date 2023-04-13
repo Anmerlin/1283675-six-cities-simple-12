@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { checkAuthAction } from 'store/user-process/api-actions';
-import { getAuthorizationStatus } from 'store/user-process/selectors';
+import { checkAuthAction } from 'store/user/api-actions';
+import { getAuthorizationStatus } from 'store/user/selectors';
 import { useAppSelector, useAppDispatch } from 'hooks';
 import { AuthorizationStatus } from 'const';
-import { UserAuth, UserUnknown, Logo } from 'components';
+import { UserAuthorized, UserUnauthorized, Logo } from 'components';
 
 function Header(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -23,7 +23,7 @@ function Header(): JSX.Element {
             <Logo />
           </div>
           <nav className="header__nav">
-            {authorizationStatus === AuthorizationStatus.Auth ? <UserAuth /> : <UserUnknown />}
+            {authorizationStatus === AuthorizationStatus.Auth ? <UserAuthorized /> : <UserUnauthorized />}
           </nav>
         </div>
       </div>

@@ -34,7 +34,6 @@ function Layout() {
     dispatch(fetchOffersAction());
   }, [dispatch]);
 
-
   const { title, postfixCls } = getPagesOption(pathname, offerId, Boolean(offers.length));
 
   return (
@@ -43,7 +42,7 @@ function Layout() {
         <title>{title}</title>
       </Helmet>
       <Header />
-      <main className={`page__main ${!offers.length ? 'page__main--index' : ''} page__main--${postfixCls}`}>
+      <main className={`page__main ${offers.length ? '' : 'page__main--index'} page__main--${postfixCls}`}>
         <Outlet />
       </main>
     </>

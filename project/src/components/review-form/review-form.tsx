@@ -1,9 +1,9 @@
 import { FormEvent, ChangeEvent, Fragment, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { sendReviewAction } from 'store/offers-data/api-actions';
+import { getSendingStatus, getSendingErrorStatus } from 'store/offers-data/selectors';
 import { OfferItem } from 'types/offer';
 import { RatingScores } from 'const';
-import { getReviewSendStatus, getSendErrorStatus } from 'store/offers-data/selectors';
 
 const DEFAULT_RATING = 0;
 const MIN_LENGTH_INPUT = 50;
@@ -19,12 +19,8 @@ type ReviewFormProps = {
 };
 
 function ReviewForm({ targetId }: ReviewFormProps): JSX.Element {
-  const isReviewSend = useAppSelector(getReviewSendStatus);
-  const isError = useAppSelector(getSendErrorStatus);
-
-  const errorText = isError ? (
-    <div style={{ color: 'red' }}>Sending feedback failed. Please resend send again</div>
-  ) : '';
+  const isSending = useAppSelector(getSendingStatus);
+  const isError = useAppSelector(getSendingErrorStatus);
 
   const [formData, setFormData] = useState<Form>({
     rating: DEFAULT_RATING,
@@ -57,7 +53,7 @@ function ReviewForm({ targetId }: ReviewFormProps): JSX.Element {
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
-      {errorText}
+      {isError ? <div style={{ color: 'red' }}>Sending feedback failed. Please resend review again</div> : ''}
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
 
@@ -71,7 +67,7 @@ function ReviewForm({ targetId }: ReviewFormProps): JSX.Element {
               type="radio"
               checked={formData.rating.toString() === score.value.toString()}
               onChange={handleFieldChange}
-              disabled={isReviewSend}
+              disabled={isSending}
             />
             <label htmlFor={`${score.value}-stars`} className="reviews__rating-label form__rating-label" title={score.title}>
               <svg className="form__star-image" width="37" height="33">
@@ -92,7 +88,7 @@ function ReviewForm({ targetId }: ReviewFormProps): JSX.Element {
         maxLength={MAX_LENGTH_INPUT}
         onChange={handleFieldChange}
         value={formData.review}
-        disabled={isReviewSend}
+        disabled={isSending}
       />
 
       <div className="reviews__button-wrapper">
