@@ -6,24 +6,31 @@ import { OfferItem, OfferList } from './offer';
 import { ReviewList } from './review';
 import { UserData } from './user-data';
 
-export type OffersProcess = {
-  city: CityName;
-  sorting: SortingData;
-}
-
 export type OffersData = {
-  offers: OfferList;
-  offer: number;
-  targetOffer: OfferItem | null;
-  nearbyOffers: OfferList;
-  isDataLoading: boolean;
-  isError: boolean;
-  reviews: ReviewList;
-  isReviewSend: boolean;
-  isSendError: boolean;
+  offers: {
+    data: OfferList;
+    isDataLoading: boolean;
+  };
+  offer: {
+    targetOffer: OfferItem | null;
+    nearbyOffers: OfferList;
+    reviews: ReviewList;
+    isInitial: boolean;
+    isDataLoading: boolean;
+    isError: boolean;
+  };
+  review: {
+    isSending: boolean;
+    isSendingError: boolean;
+  };
 };
 
-export type UserProcess = {
+export type OffersList = {
+  city: CityName;
+  sorting: SortingData;
+};
+
+export type User = {
   authorizationStatus: AuthorizationStatus;
   userData: UserData | null;
 };

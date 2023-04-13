@@ -1,4 +1,4 @@
-type SortingIds = 'A' | 'B' | 'C' | 'D';
+type SortingIds = 'popular' | 'priceToHigh' | 'priceToLow' | 'rated';
 
 export type SortingData = {
   text: string;

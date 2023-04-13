@@ -7,17 +7,17 @@ import { Rating } from 'components';
 
 type CardProps = {
   offer: OfferItem;
-  handleCardHover?: (offer: OfferItem | null) => void;
+  onHoverCard?: (offer: OfferItem | null) => void;
 }
 
-function Card({ offer, handleCardHover }: CardProps): JSX.Element {
+function OfferCard({ offer, onHoverCard }: CardProps): JSX.Element {
   const { id, isPremium, previewImage, price, rating, title, type } = offer;
 
   const currentType = housingType[type as HousingTypes];
 
   const handleOfferHover = (value: OfferItem | null) => {
-    if (typeof handleCardHover === 'function') {
-      handleCardHover(value);
+    if (typeof onHoverCard === 'function') {
+      onHoverCard(value);
     }
   };
 
@@ -53,4 +53,4 @@ function Card({ offer, handleCardHover }: CardProps): JSX.Element {
   );
 }
 
-export default memo(Card);
+export default memo(OfferCard);

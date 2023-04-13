@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
-import { selectSorting } from 'store/offers-process/offers-process';
-import { getSelectedSorting } from 'store/offers-process/selectors';
+import { selectSorting } from 'store/offers-list/offers-list';
+import { getSelectedSorting } from 'store/offers-list/selectors';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { SortingData } from 'types/sorting';
 import { sortingOptions } from 'const';

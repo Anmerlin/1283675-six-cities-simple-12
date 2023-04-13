@@ -2,13 +2,15 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from 'hooks';
 import { fetchTargetOfferAction } from 'store/offers-data/api-actions';
-import { getDataLoadingStatus, getTargetOffer, getNearbyOffers, getReviews, getErrorStatus } from 'store/offers-data/selectors';
+import { getTargetOffer, getNearbyOffers, getReviews, getInitialStatus, getDataOfferLoadingStatus, getErrorStatus } from 'store/offers-data/selectors';
 import { OfferItem } from 'types/offer';
 import { Loader, Offer, PageNotFound } from 'components';
+import LoadingScreen from 'pages/loading/loading';
 
 function OfferScreen(): JSX.Element {
   const { id: offerId } = useParams();
-  const isDataLoading = useAppSelector(getDataLoadingStatus);
+  const isInitial = useAppSelector(getInitialStatus);
+  const isDataLoading = useAppSelector(getDataOfferLoadingStatus);
   const isError = useAppSelector(getErrorStatus);
   const targetOffer = useAppSelector(getTargetOffer);
   const nearbyOffers = useAppSelector(getNearbyOffers);
@@ -22,12 +24,16 @@ function OfferScreen(): JSX.Element {
     }
   }, [offerId, dispatch]);
 
-  if (isError && !isDataLoading) {
-    return <PageNotFound />;
+  if (!isInitial) {
+    return <LoadingScreen />;
   }
 
   if (isDataLoading) {
     return <Loader />;
+  }
+
+  if (isError) {
+    return <PageNotFound />;
   }
 
   return (

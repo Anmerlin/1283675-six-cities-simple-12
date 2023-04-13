@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CityName } from 'types/city';
 import { SortingData } from 'types/sorting';
-import { OffersProcess } from 'types/state';
+import { OffersList } from 'types/state';
 import { DEFAULT_CITY, DEFAULT_SORTING, NameSpace } from 'const';
 
-const initialState: OffersProcess = {
+const initialState: OffersList = {
   city: DEFAULT_CITY,
   sorting: DEFAULT_SORTING,
 };
 
-export const offersProcess = createSlice({
+export const offersList = createSlice({
   name: NameSpace.Offer,
   initialState,
   reducers: {
@@ -25,4 +25,4 @@ export const offersProcess = createSlice({
   },
 });
 
-export const { changeCity, selectSorting} = offersProcess.actions;
+export const { changeCity, selectSorting } = offersList.actions;

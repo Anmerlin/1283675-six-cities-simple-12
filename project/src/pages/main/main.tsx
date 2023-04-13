@@ -1,6 +1,6 @@
 import { getOffers } from 'store/offers-data/selectors';
 import { useAppSelector } from 'hooks';
-import { CityList, Main, EmptyList, } from 'components';
+import { CityList, Main, EmptyList } from 'components';
 
 function MainScreen(): JSX.Element {
   const offers = useAppSelector(getOffers);

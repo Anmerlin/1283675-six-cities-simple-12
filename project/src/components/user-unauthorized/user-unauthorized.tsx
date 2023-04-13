@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'const';
 
-function UserUnknown(): JSX.Element {
+function UserUnautherized(): JSX.Element {
   const navigate = useNavigate();
 
   return (
@@ -23,4 +23,4 @@ function UserUnknown(): JSX.Element {
   );
 }
 
-export default UserUnknown;
+export default UserUnautherized;

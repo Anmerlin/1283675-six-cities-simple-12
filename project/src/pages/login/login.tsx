@@ -1,10 +1,10 @@
-import { FormEvent, useEffect, useMemo } from 'react';
+import { FormEvent, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector, useAppDispatch } from 'hooks';
 import { redirectToRoute } from 'store/actions';
-import { checkAuthAction, loginAction } from 'store/user-process/api-actions';
-import { changeCity } from 'store/offers-process/offers-process';
-import { getAuthorizationStatus } from 'store/user-process/selectors';
+import { checkAuthAction, loginAction } from 'store/user/api-actions';
+import { changeCity } from 'store/offers-list/offers-list';
+import { getAuthorizationStatus } from 'store/user/selectors';
 import { AppRoute, AuthorizationStatus, PagesOption, cityNames } from 'const';
 import { Header } from 'components';
 
@@ -21,10 +21,7 @@ function LoginScreen(): JSX.Element {
     event.preventDefault();
 
     const { email, password } = Object.fromEntries(new FormData(event.target as HTMLFormElement)) as Form;
-    dispatch(loginAction({
-      email: email,
-      password: password,
-    }));
+    dispatch(loginAction({ email, password }));
   };
 
   useEffect(() => {
@@ -37,15 +34,15 @@ function LoginScreen(): JSX.Element {
     }
   }, [authorizationStatus, dispatch]);
 
-  const randomCity = useMemo(() => cityNames[Math.floor(Math.random() * cityNames.length)], []);
-  const onClickCity = () => {
+  const randomCity = cityNames[Math.floor(Math.random() * cityNames.length)];
+  const onCitySelect = () => {
     dispatch(changeCity({ targetCity: randomCity }));
     dispatch(redirectToRoute(AppRoute.Main));
   };
 
   return (
     <section className={`page page--gray page--${PagesOption.Login.postfixCls}`}>
-      < Helmet >
+      <Helmet>
         <title>{PagesOption.Login.title}</title>
       </Helmet >
       <Header />
@@ -82,7 +79,7 @@ function LoginScreen(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="/#" onClick={onClickCity}>
+              <a className="locations__item-link" href="/#" onClick={onCitySelect}>
                 <span>{randomCity}</span>
               </a>
             </div>
