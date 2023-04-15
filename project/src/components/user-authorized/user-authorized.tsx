@@ -2,7 +2,7 @@ import { logoutAction } from 'store/user/api-actions';
 import { getUserData } from 'store/user/selectors';
 import { useAppSelector, useAppDispatch } from 'hooks';
 
-function UserAutherized(): JSX.Element {
+function UserAuthorized(): JSX.Element {
   const currentUser = useAppSelector(getUserData);
   const dispatch = useAppDispatch();
 
@@ -30,4 +30,4 @@ function UserAutherized(): JSX.Element {
   );
 }
 
-export default UserAutherized;
+export default UserAuthorized;

@@ -49,8 +49,7 @@ function MainContent(): JSX.Element {
   }, [filteredOffers, selectedSorting]);
 
   useEffect(() => {
-    const wrapper = offerListWrapper.current as HTMLElement;
-    wrapper.scrollTo(0, 0);
+    offerListWrapper.current?.scrollTo(0, 0);
   }, [selectedCity]);
 
   const placesFoundText = getTextByCount(filteredOffers.length, selectedCity);
