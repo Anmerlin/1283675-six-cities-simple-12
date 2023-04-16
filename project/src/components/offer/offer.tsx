@@ -54,18 +54,19 @@ function Offer({
   } = targetOffer;
 
   const currentType = housingType[type as HousingTypes];
+  const slicedImages = images.slice(0, 6);
 
   return (
     <>
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            {images.map((image) => (
+            {slicedImages.map((image) => (
               <div className="property__image-wrapper" key={image}>
                 <img
                   className="property__image"
                   src={image}
-                  alt={`${title} photogallery stidio`}
+                  alt={`${title} photogallery studio`}
                 />
               </div>
             ))}
