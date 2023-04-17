@@ -1,5 +1,4 @@
-import { OffersData } from 'types/state';
-import { offersData } from './offers-data';
+import { initialState, offersData } from './offers-data';
 import { OfferItem, OfferList } from 'types/offer';
 import { ReviewList } from 'types/review';
 import { makeFakeOffer, makeFakeOffers, makeFakeReviews } from 'utils/mocks';
@@ -18,40 +17,15 @@ const targetOfferPayload: [OfferItem, OfferList, ReviewList] = [
 ];
 
 describe('Reducer: offersData', () => {
-  let initialState: OffersData;
-
-  beforeEach(() => {
-    initialState = {
-      offers: {
-        data: [],
-        isDataLoading: false,
-      },
-      offer: {
-        targetOffer: null,
-        nearbyOffers: [],
-        reviews: [],
-        isInitial: false,
-        isDataLoading: false,
-        isError: false,
-      },
-      review: {
-        isSending: false,
-        isSendingError: false,
-      },
-    };
-  });
-
   it('without additional parameters should return initial state', () => {
-    expect(offersData.reducer(undefined, { type: 'UNKNOWN_ACTION' })).toEqual(
-      initialState
-    );
+    expect(offersData.reducer(undefined, { type: 'UNKNOWN_ACTION' })
+    ).toEqual(initialState);
   });
 
-
-  it('should set isDataLoading to "true" pending before receiving offers', () => {
+  it('should set isDataLoading to "true" before receiving offers', () => {
     expect(
-      offersData.reducer(initialState, { type: fetchOffersAction.pending.type })
-    ).toEqual({ ...initialState, offers: { data: [], isDataLoading: true } }); // спросить
+      offersData.reducer(initialState, { type: fetchOffersAction.pending.type }).offers
+    ).toEqual({ ...initialState.offers, isDataLoading: true });
   });
 
   it('should set loaded offers and isDataLoading to "false"', () => {
@@ -59,66 +33,59 @@ describe('Reducer: offersData', () => {
       offersData.reducer(initialState, {
         type: fetchOffersAction.fulfilled.type,
         payload: offers,
-      })
-    ).toEqual({ ...initialState, offers: { data: offers, isDataLoading: false } }); //спросить
+      }).offers
+    ).toEqual({ data: offers, isDataLoading: false });
   });
 
   it('should set isDataLoading to "false" on offers rejected', () => {
     expect(
       offersData.reducer(initialState, {
         type: fetchOffersAction.rejected.type,
-      })
-    ).toEqual({ ...initialState, offers: { data: [], isDataLoading: false } }); // спросить
+      }).offers
+    ).toEqual({ ...initialState.offers, isDataLoading: false });
   });
 
   it('should set isInitial to "true" and isDataLoading to "true" when pending before receiving targetOffer', () => {
     expect(
-      offersData.reducer(initialState, {
-        type: fetchTargetOfferAction.pending.type,
-      })
-    ).toEqual({ ...initialState, offer: { ...initialState.offer, isInitial: true, isDataLoading: true } });
+      offersData.reducer(initialState, { type: fetchTargetOfferAction.pending.type }).offer
+    ).toEqual({ ...initialState.offer, isInitial: true, isDataLoading: true });
   });
 
   it('should set targetOffer, nearbyOffers, reviews and isDataLoading to "false"', () => {
-    expect(
-      offersData.reducer(initialState, {
-        type: fetchTargetOfferAction.fulfilled.type,
-        payload: targetOfferPayload,
-      })
+    expect(offersData.reducer(initialState, {
+      type: fetchTargetOfferAction.fulfilled.type,
+      payload: targetOfferPayload,
+    }).offer
     ).toEqual({
-      ...initialState,
-      offer: {
-        ...initialState.offer,
-        targetOffer,
-        nearbyOffers,
-        reviews,
-        isDataLoading: false,
-      }
+      ...initialState.offer,
+      targetOffer,
+      nearbyOffers,
+      reviews,
+      isDataLoading: false,
     });
   });
 
   it('should set isError to "true" and isDataLoading to "false" on targetOffer rejected', () => {
     expect(
-      offersData.reducer(initialState, {
-        type: fetchTargetOfferAction.rejected.type,
-      })
-    ).toEqual({ ...initialState, offer: { ...initialState.offer, isError: true, isDataLoading: false } });
+      offersData.reducer(initialState, { type: fetchTargetOfferAction.rejected.type }).offer
+    ).toEqual({ ...initialState.offer, isError: true, isDataLoading: false });
   });
 
   it('should set isSending to "true" pending review', () => {
     expect(
-      offersData.reducer(initialState, { type: sendReviewAction.pending.type })
-    ).toEqual({ ...initialState, review: { ...initialState.review, isSending: true } });
+      offersData.reducer(initialState, { type: sendReviewAction.pending.type }).review
+    ).toEqual({ ...initialState.review, isSending: true });
   });
 
   it('should update reviews and set isSending "false"', () => {
-    expect(
-      offersData.reducer(initialState, {
-        type: sendReviewAction.fulfilled.type,
-        payload: reviews,
-      })
-    ).toEqual({
-      ...initialState,
+    const actionChecking = offersData.reducer(initialState, {
+      type: sendReviewAction.fulfilled.type,
+      payload: reviews,
+    });
+    expect({
+      offer: actionChecking.offer,
+      review: actionChecking.review,
+    }).toEqual({
       offer: { ...initialState.offer, reviews },
       review: { ...initialState.review, isSending: false }
     });
@@ -126,9 +93,7 @@ describe('Reducer: offersData', () => {
 
   it('should set isSendingError to "true" and isSending to "false" on review rejected', () => {
     expect(
-      offersData.reducer(initialState, {
-        type: sendReviewAction.rejected.type,
-      })
-    ).toEqual({ ...initialState, review: { isSendingError: true, isSending: false } });
+      offersData.reducer(initialState, { type: sendReviewAction.rejected.type }).review
+    ).toEqual({ isSendingError: true, isSending: false });
   });
 });

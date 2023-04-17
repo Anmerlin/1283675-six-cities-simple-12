@@ -10,7 +10,7 @@ function Rating({ rating, prefixCls, children }: RatingProps): JSX.Element {
   const ratingStyleValue = (Math.round(rating) / MAX_RATING) * 100;
 
   return (
-    <div className={`${prefixCls}__rating rating`}>
+    <div className={`${prefixCls}__rating rating`} data-testid={prefixCls}>
       <div className={`${prefixCls}__stars rating__stars`}>
         <span style={{ width: `${ratingStyleValue}%` }}></span>
         <span className="visually-hidden">Rating</span>

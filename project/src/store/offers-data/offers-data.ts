@@ -3,7 +3,7 @@ import { fetchOffersAction, fetchTargetOfferAction, sendReviewAction } from './a
 import { OffersData } from 'types/state';
 import { NameSpace } from 'const';
 
-const initialState: OffersData = {
+export const initialState: OffersData = {
   offers: {
     data: [],
     isDataLoading: false,

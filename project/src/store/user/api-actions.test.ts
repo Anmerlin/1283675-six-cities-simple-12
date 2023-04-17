@@ -35,8 +35,22 @@ describe('Async actions', () => {
     ]);
   });
 
+  it('should dispatch checkUserAction when server returns 400', async () => {
+    const user = {};
+
+    const store = mockStore();
+    mockAPI.onGet(APIRoute.Login).reply(400, user);
+    expect(store.getActions()).toEqual([]);
+    await store.dispatch(checkAuthAction());
+    const actions = store.getActions().map(({ type }) => type);
+    expect(actions).toEqual([
+      checkAuthAction.pending.type,
+      checkAuthAction.rejected.type,
+    ]);
+  });
+
   it('should dispatch loginAction and redirectToRoute when POST /login', async () => {
-    const fakeUser: AuthData = { email: 'test@test.com', password: 't7t8t9' };
+    const fakeUser: AuthData = { email: 'test@example.com', password: 't7t8t9' };
 
     mockAPI.onPost(APIRoute.Login).reply(200, { token: 'secret' });
 

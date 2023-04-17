@@ -4,7 +4,7 @@ import { SortingData } from 'types/sorting';
 import { OffersList } from 'types/state';
 import { DEFAULT_CITY, DEFAULT_SORTING, NameSpace } from 'const';
 
-const initialState: OffersList = {
+export const initialState: OffersList = {
   city: DEFAULT_CITY,
   sorting: DEFAULT_SORTING,
 };

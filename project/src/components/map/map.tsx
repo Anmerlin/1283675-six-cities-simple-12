@@ -74,7 +74,7 @@ function Map(props: MapProps): JSX.Element {
     }
   }, [city, currentCity, map, offers, selectedOffer]);
 
-  return <section className={`${className ? className : ''} map`} ref={mapRef} />;
+  return <section className={`${className ? className : ''} map`} ref={mapRef} data-testid="map" />;
 }
 
 export default memo(Map);
