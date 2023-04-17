@@ -1,21 +1,11 @@
 import { checkAuthAction, loginAction, logoutAction } from './api-actions';
-import { user } from './user';
-import { User } from 'types/state';
+import { initialState, user } from './user';
 import { AuthorizationStatus } from 'const';
 import { makeFakeUser } from 'utils/mocks';
 
 const userData = makeFakeUser();
 
 describe('Reducer: user', () => {
-  let initialState: User;
-
-  beforeEach(() => {
-    initialState = {
-      authorizationStatus: AuthorizationStatus.Unknown,
-      userData: null,
-    };
-  });
-
   it('without additional parameters should return initial state', () => {
     expect(user.reducer(undefined, { type: 'UNKNOWN_ACTION' })).toEqual(initialState);
   });

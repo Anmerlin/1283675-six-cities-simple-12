@@ -26,8 +26,8 @@ export const makeFakeCity = (): City => ({
 export const makeFakeOffer = (): OfferItem => ({
   id: datatype.number(100),
   isPremium: datatype.boolean(),
-  previewImage: image.abstract(),
-  images: Array.from({ length: datatype.number(10) }, () => image.abstract()),
+  previewImage: image.imageUrl(260, 200, 'city', true),
+  images: Array.from({ length: datatype.number(10) }, () => image.imageUrl(260, 200, 'city', true)),
   price: datatype.number(100),
   rating: datatype.number(100),
   title: datatype.string(),
@@ -76,5 +76,5 @@ export const makeFakeReviews = (): ReviewList =>
 
 export const makeFakeReviewData = (): ReviewData => ({
   review: datatype.string(),
-  rating: 5,
+  rating: Math.floor(Math.random() * 5) + 1,
 });

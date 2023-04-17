@@ -25,6 +25,7 @@ function SortingForm(): JSX.Element {
         className="places__sorting-type"
         tabIndex={0}
         onClick={() => setIsSortListOpened(!isSortListOpened)}
+        title={selectedSorting.text}
       >
         {selectedSorting.text}
         <svg className="places__sorting-arrow" width="7" height="4">

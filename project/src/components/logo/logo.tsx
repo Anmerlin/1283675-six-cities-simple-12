@@ -8,7 +8,7 @@ function Logo(): JSX.Element {
 
   if (location.pathname === AppRoute.Main) {
     return (
-      <a className='header__logo-link header__logo-link--active'>
+      <a className='header__logo-link header__logo-link--active' data-testid='logo-main'>
         {logoImg}
       </a>
     );
